@@ -9,3 +9,11 @@ def home_view(request):
 def product_view(request):
     template_name = 'products.html'
     return render(request, 'products.html', {})
+
+def faq_view(request):
+    template_name = 'faq.html'
+    return render(request, 'faq.html', {})
+
+def contact_us_view(request):
+    template_name = 'contact_us.html'
+    return render(request, 'contact_us.html', {})
