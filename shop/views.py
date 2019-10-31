@@ -10,9 +10,9 @@ def product_view(request):
     template_name = 'products.html'
     return render(request, 'products.html', {})
 
-def faq_view(request):
-    template_name = 'faq.html'
-    return render(request, 'faq.html', {})
+def grooming_tips_view(request):
+    template_name = 'grooming_tips.html'
+    return render(request, 'grooming_tips.html', {})
 
 def contact_us_view(request):
     template_name = 'contact_us.html'
