@@ -4,32 +4,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/style.css">
     <title>FreshShop</title>
     </head>
     <body>
         <div class="header-container row">
-        <header class="col-sm-2">
-            <img src="/media/images/fresh_logo_v2.png" width="190" height="140" class="img-fluid"alt="logo">
-        </header>
-        <div class="col-sm-7">
-        <form class="form-inline my-3 my-lg-0" action="{% url 'search_result' %}" method="GET">
-                {% csrf_token %}
-                <input class="form-control" type="search" placeholder="Search" aria-lable="Search" name="q">
-                <button class="glyphicon glyphicon-search" type="submit"></button>
-        </form>
-        <ul class="navbar-nav d-inline-block">
-            <li class="nav-item d-inline">
-                Log In |
-            </li>
-            <li class="nav-item d-inline">
-                Sign Up
-            </li>
-        </ul>
+            <div class="col-sm-2">
+                <header>
+                    <img src="/media/images/fresh_logo_v2.png" width="190" height="140" class="img-fluid"alt="logo">
+                </header>
+            </div>
+            <div class="col-sm-8 mt-2">
+                <div class="cont">
+                    <ul class="navbar-nav d-inline-block">
+                        <li class="nav-item d-inline">
+                            Log In |
+                        </li>
+                        <li class="nav-item d-inline">
+                            Sign Up
+                        </li>
+                    </ul>
+                </div>
+                <form class="mt-1 ml-5 float-sm-right search input-group" action="{% url 'search_result' %}" method="GET">
+                        {% csrf_token %}
+                        <input class="form-control" type="search" placeholder="Search" aria-lable="Search" name="q">
+                        <button class="search-button" type="submit"> <i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
         </div>
-        <div class="col-sm-3"></div>
-        </div>
-    </div>
         <nav class="row navbar navbar-expand-sm">
             <div class="col-sm-2"></div>
             <ul class="col-sm-8 navbar-nav">

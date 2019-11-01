@@ -2,10 +2,32 @@ header img{
     margin: auto 300px auto;
 }
 
-.header-container{
+.header-container .search{
+    width: 30%;
+    margin-right: 70px;
+    padding: 7px;
+    background-color: #e3ffff;
+    outline: 2px solid black;
+}
+
+.search-button{
+    width: 10%;
+    height: 35px;
+    border: 1px solid #e3ffff;
+    background: #e3ffff;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.cont{
     text-align: right;
+    margin-right: 20em;
+    margin-bottom: 10px;
 }
 
 nav{
-    background-color: #e3ffff; 
+    background: #e3ffff;
+    border: 3px black solid; 
 }
