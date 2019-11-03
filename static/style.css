@@ -1,10 +1,11 @@
+/* BASE.HTML CSS*/
 header img{
     margin: auto 300px auto;
 }
 
 .header-container .search{
     width: 30%;
-    margin-right: 70px;
+    margin-right: 15px;
     padding: 7px;
     background-color: #e3ffff;
     outline: 2px solid black;
@@ -21,13 +22,105 @@ header img{
     font-size: 20px;
 }
 
-.cont{
+.account{
     text-align: right;
-    margin-right: 20em;
+    margin-right: 13em;
     margin-bottom: 10px;
+}
+
+.account li{
+    float: left;
+}
+
+.account li::after{
+    content: "";
+    position: absolute;
+    top: 3px;
+    height: 20px;
+    width: 1px;
+    background: black;
+    margin: 0px 9px;
+}
+
+.account a{
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 20px;
+    color: black;
+    font-weight: bolder;
+}
+
+.account a:hover{
+    text-decoration: none;
+}
+
+.account .signedin{
+    margin-right: 5em;
+}
+
+.signedin ~ li::after{
+    content: "";
+    position: absolute;
+    top: 3px;
+    height: 20px;
+    width: 1px;
+    background: black;
+    margin: 0px 1px;
 }
 
 nav{
     background: #e3ffff;
     border: 3px black solid; 
+}
+
+/* Sign In CSS*/
+
+.box-signin{
+    border: 1px solid black;
+    padding: 50px;
+    background: #e3ffff;
+    min-height: 404px;
+}
+
+.custom-button{
+    border: 2px black solid;
+    color: black;
+    background: #e3ffff;
+    cursor: pointer;
+    width: 30%;
+}
+
+.box a{
+    text-decoration: none;
+    margin-left: 10px;
+    color: black;
+    font-weight: bolder;
+    border: 2px black solid;
+    background: #e3ffff;
+    padding: 10px;
+
+}
+
+.box a:hover{
+    text-decoration: none;
+}
+
+.box .required {
+    margin-top: -4px;
+    text-align: right;
+}
+
+/* Sign Up CSS*/
+
+.box-signup{
+    border: 1px solid black;
+    padding: 30px;
+    background: #e3ffff;
+    min-height: 404px;
+    width: 65%;
+    margin: auto
+}
+
+.box-signup p{
+    font-weight: bold;
 }

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block metadescription %}
+	Sign in and enjoy the variety of products.
+{% endblock %}
+{% block title %}
+	Login - Online Store
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<br>
+		<h1 class="text-center">Login or Create an Account</h1>
+		<br>
+		<div class="row box-signin">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-light text-center border border-dark border-right-0 ">
+				<br>
+				<h2 class="">New Customers</h2>
+				<br>
+				<p>By creating an account with our store, you will be able to save your shipping details, view your orders and more.</p>
+				<br>
+				<a href="{% url 'signup' %}">Create New Account</a>
+			</div>
+			<div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-light border border-dark border-left-0">
+				<div>
+					<br>
+					<h2>Registered Customers</h2>
+					<br>
+					<p>If you have an account with us, please log in.</p>
+					<form method="post">
+						{% csrf_token %}
+						<p>{{ form | crispy }}</p>
+						<p class="required text-danger">* Required Fields</p>
+						<button type="submit" class="custom-button">Login</button>
+					</form>
+					<br>
+				</div>
+				
+			</div>
+		</div>
+		<br>
+	</div>
+	<br>
+{% endblock %}
