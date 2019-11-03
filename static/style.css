@@ -8,7 +8,8 @@ header img{
     margin-right: 15px;
     padding: 7px;
     background-color: #e3ffff;
-    outline: 2px solid black;
+    border: 2px black solid;
+    border-radius: 10px;
 }
 
 .search-button{
@@ -54,6 +55,18 @@ header img{
     text-decoration: none;
 }
 
+.account a::after{
+    background: none repeat scroll 0 0 transparent;
+    bottom: 5px;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    background: black;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
 .account .signedin{
     margin-right: 5em;
 }
@@ -70,8 +83,53 @@ header img{
 
 nav{
     background: #e3ffff;
-    border: 3px black solid; 
+    border: 2px black solid; 
+    min-height: 80px;
+    box-shadow: 0px 2px 3px;
 }
+
+nav a{
+    border: 2px black solid;
+    border-radius: 10px;
+    text-transform: uppercase;
+    background-color: white;
+    box-shadow: 3px 3px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+nav a:after{    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 5px;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    background: black;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+a:hover:after { 
+    width: 100%; 
+    left: 0; 
+}
+
+.navbar {
+    width: 65%;
+    margin: auto;
+    border-radius: 10px;
+}
+
+footer {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 65%;
+    margin: auto;
+    padding: 10px;
+    background-color: #e3ffff;
+}
+
 
 /* Sign In CSS*/
 
@@ -80,17 +138,19 @@ nav{
     padding: 50px;
     background: #e3ffff;
     min-height: 404px;
+    width: 100%;
 }
 
 .custom-button{
     border: 2px black solid;
+    border-radius: 10px;
     color: black;
     background: #e3ffff;
     cursor: pointer;
     width: 30%;
 }
 
-.box a{
+.box-signin a{
     text-decoration: none;
     margin-left: 10px;
     color: black;
@@ -101,11 +161,11 @@ nav{
 
 }
 
-.box a:hover{
+.box-signin a:hover{
     text-decoration: none;
 }
 
-.box .required {
+.box-signin .required {
     margin-top: -4px;
     text-align: right;
 }
@@ -114,6 +174,7 @@ nav{
 
 .box-signup{
     border: 1px solid black;
+    border-radius: 10px;
     padding: 30px;
     background: #e3ffff;
     min-height: 404px;
@@ -123,4 +184,9 @@ nav{
 
 .box-signup p{
     font-weight: bold;
+}
+
+.box-signup .required {
+    margin-top: -4px;
+    text-align: right;
 }

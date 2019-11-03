@@ -20,7 +20,8 @@
                 <form method="post">
                     {% csrf_token %}
                     <p>{{ form | crispy }}</p>
-                    <button type="submit" class="btn">Register Account</button>
+                    <p class="required text-danger">* Required Fields</p>
+                    <button type="submit" class="custom-button">Register Account</button>
                 </form>
                 <br>
                 </div>
@@ -29,7 +30,7 @@
     {% else %}
         <div class="mx-auto">
             <br>
-            <h1 class="my_title text-center">Your account has been successfully created</h1>
+            <h1 class="text-center">Your account has been successfully created</h1>
             <br>
             <div>
                 <p>
