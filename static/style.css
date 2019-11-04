@@ -68,7 +68,7 @@ header img{
 }
 
 .account .signedin{
-    margin-right: 5em;
+    margin-right: -10px;
 }
 
 .signedin ~ li::after{
@@ -218,5 +218,29 @@ footer {
     filter: invert(100%);
 }
 
+/* Grooming Tips */
 
+.tips {
+    border: 1px black solid;
+    border-radius: 5px;
+    background: #e3ffff;
+    margin-bottom: 10px;
+}
+
+/* Contact Us */
+
+.contact {
+    border: 1px black solid;
+    border-radius: 5px;
+    background: #e3ffff;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 65%;
+}
+
+/* Products */
+
+.products {
+    margin: auto;
+}
 

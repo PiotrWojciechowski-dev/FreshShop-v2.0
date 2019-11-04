@@ -1,0 +1,247 @@
+[
+    {
+      "model": "shop.product",
+      "pk": 1,
+      "fields": {
+        "category_id":5,
+        "name": "Fresh Cologne",
+        "description": "A scent as surreptitious as your shave, Fresh Cologne gives your skin that unmatched citrus taste.",
+        "stock": 3,
+        "price": 45.00
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 2,
+        "fields": {
+          "category_id":5,
+          "name": "Foam Oil",
+          "description": "Nothing pleases your skin more than an irritation-free shave. Fresh's foam oil gel is perfect just for that.",
+          "stock": 4,
+          "price": 7.00
+          }
+      },
+      {
+        "model": "shop.product",
+        "pk": 3,
+        "fields": {
+          "category_id":5,
+          "name": "Fresh Aftershave",
+          "description": "It's only right you treat your skin before a shave, so treat it AFTER. Fresh Aftershave offers your skin a refreshing, cool touch.",
+          "stock": 100,
+          "price": 12.00
+          }
+      },
+          {
+      "model": "shop.product",
+      "pk": 4,
+      "fields": {
+        "category_id":5,
+        "name": "Aloe Vera Cream",
+        "description": "Strong beard growth requires a soft healing touch. Aloe vera is the appropriate pre-shave remedy for softening up those ingrained hairs and allowing a perfect, gentle shave.",
+        "stock": 3,
+        "price": 10.00
+        }
+    },
+        {
+      "model": "shop.product",
+      "pk": 5,
+      "fields": {
+        "category_id":5,
+        "name": "Fresh Shaving Soap",
+        "description": "Cost-effective, skin-affective, hair-defective. Fresh Shaving Soap is great for a lubricating, pain-free shave for anyone suffering from painful, bloody shaves.",
+        "stock": 3,
+        "price": 10.00
+        }
+    },
+        {
+      "model": "shop.product",
+      "pk": 6,
+      "fields": {
+        "category_id":1,
+        "name": "Shaving Gel",
+        "description": "For all-shaving purposes, shaving gel will provide you with the best, irritation-free shave possible. A soft lather with a brush and the job is done.",
+        "stock": 3,
+        "price": 10.00
+         }
+    },
+        {
+        "model": "shop.product",
+        "pk": 7,
+        "fields": {
+          "category_id":1,
+          "name": "Multiblade Razor",
+          "description": "Multi-blade razor, stylishly designed and optimal for a clean shave, finished with a proper wet grip and control.",
+          "stock": 3,
+          "price": 45.00
+          }
+        },
+          {
+          "model": "shop.product",
+          "pk": 8,
+          "fields": {
+            "category_id":1,
+            "name": "Safety Razor",
+            "description": "The one razor to rule them all - the DE safety razor. Perfect for any shave without pressure, force or awkwardness. Simply hold relatively firmly and go easy on the face.",
+            "stock": 4,
+            "price": 7.00
+            }
+        },
+        {
+          "model": "shop.product",
+          "pk": 9,
+          "fields": {
+            "category_id":1,
+            "name": "Advanced Safety Razor",
+            "description": "Experience comfort like you've never. Effortlessly shave your facial hair with an attractive, unique and durable blade designed for the perfect glide and perfect handle.",
+            "stock": 100,
+            "price": 12.00
+            }
+        },
+            {
+        "model": "shop.product",
+        "pk": 10,
+        "fields": {
+          "category_id":1,
+          "name": "Professional Safety Razor",
+          "description": "Nothing lasts forever. But with the Professional Safety Razor does. Designed to bring a lifetime of quality shaves, our highly rated and sought after razor is popular with men from all over the world. This safety razor maximizes quality in every aspect of your shave - no more forced passes, no more tarnished or improper handles, and no more replaced safety razors. .",
+          "stock": 3,
+          "price": 10.00
+          }
+        },
+          {
+        "model": "shop.product",
+        "pk": 11,
+        "fields": {
+          "category_id":1,
+          "name": "Straight razor",
+          "description": "Cost-effective, skin-affective, hair-defective. Fresh Shaving Soap is great for a lubricating, pain-free shave for anyone suffering from painful, bloody shaves.",
+          "stock": 3,
+          "price": 10.00
+          }
+        },
+          {
+        "model": "shop.product",
+        "pk": 12,
+        "fields": {
+          "category_id":1,
+          "name": "Advanced straight razor",
+          "description": "A stunning straight razor needs a stunning touch. And our advaned straight razor does just the thing. An expertly crafted blade, designed to perfection with carbon steel, will give you that smooth, clean babyface you utterly crave.",
+          "stock": 3,
+          "price": 10.00
+          }
+        },
+          {
+        "model": "shop.product",
+        "pk": 13,
+        "fields": {
+          "category_id":2,
+          "name": "Facial hair trimmer",
+          "description": "Trim your beard with the finest precision. Our facial hair trimmer gives you an easy-on-the-skin experience whether you're grooming your beard or removing it.",
+          "stock": 3,
+          "price": 10.00
+          }
+        },
+          {
+          "model": "shop.product",
+          "pk": 14,
+          "fields": {
+            "category_id":2,
+            "name": "Facial hair trimmer pack",
+            "description": "Your facial hair trimmer now becomes more accessible with our fine utilities at .",
+            "stock": 4,
+            "price": 7.00
+            }
+        },
+            {
+            "model": "shop.product",
+            "pk": 15,
+            "fields": {
+              "category_id":3,
+              "name": "Beard comb",
+              "description": "Give your beard the care and refining it deserves with a Fresh beard comb.",
+              "stock": 3,
+              "price": 10.00
+              }
+        },
+              {
+              "model": "shop.product",
+              "pk": 16,
+              "fields": {
+                "category_id":3,
+                "name": "Bowl stand",
+                "description": "Convenience makes your shave a lot quicker. Perfect for keeping all shaving bowls.",
+                "stock": 4,
+                "price": 7.00
+                }
+        },
+              {
+              "model": "shop.product",
+              "pk": 17,
+              "fields": {
+                "category_id":3,
+                "name": "Facial hair brush",
+                "description": "Perfect your preshave routine with the optimal lather of shaving cream, soap or oil.", 
+                "stock": 100,
+                "price": 12.00
+                }
+        },
+                {
+            "model": "shop.product",
+            "pk": 18,
+            "fields": {
+              "category_id":3,
+              "name": "Pro Hair Brush",
+              "description": "Fresh's range of fine hairbrushes provide maximum comfort for anyone seeking that perfect shave, and the Professional Hairbrush gives you that superbly soft touch with fine badger hairs.",
+              "stock": 3,
+              "price": 10.00
+              }
+          },
+              {
+            "model": "shop.product",
+            "pk": 19,
+            "fields": {
+              "category_id":3,
+              "name": "Stainless Bowl",
+              "description": "The perfect container for your lathers, creams, gels and oil for your shaving call of duty.",
+              "stock": 3,
+              "price": 10.00
+              }
+        },
+              {
+            "model": "shop.product",
+            "pk": 20,
+            "fields": {
+                "category_id":4,
+                "name": "Women's moisturiser",
+                "description": "Your skin is a temple and deserves to be kept that way. Our holy Fresh Shampoo for ladies is essential for all women looking for that youthful edge in their skin. Fresh Moisturiser for women contains SPF-50 to prevent the damaging properties from the skin from affecting your skin in any way, leaving your skin unaffected.",
+                "stock": 3,
+                "price": 45.00
+                }
+        },
+                {
+            "model": "shop.product",
+            "pk": 21,
+            "fields": {
+                "category_id":4,
+                "name": "Safety Razor",
+                "description": "Hair removal is only as easy as your razor allows it to be. Perfect for women with soft, graceful skin, this small, easily handled multirazor will grant you the superb shave you need.",
+                "stock": 4,
+                "price": 7.00
+                }
+        },
+                {
+            "model": "shop.product",
+            "pk": 22,
+            "fields": {
+                "category_id":4,
+                "name": "Skin Soothener",
+                "description": "Perfect for soft, feminine, easily irritated skin, this skin soother will alleviate any rashes or burns you get after your shave.",
+                "stock": 100,
+                "price": 12.00
+                }
+        }
+]   
+        
+
+
