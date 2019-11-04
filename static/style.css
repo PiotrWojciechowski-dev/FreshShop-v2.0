@@ -190,3 +190,33 @@ footer {
     margin-top: -4px;
     text-align: right;
 }
+
+/* Home */
+
+.carousel{
+    width: 65%;
+    margin: 20px auto;
+    border: 2px black solid;
+    border-radius: 5px;
+}
+.carousel-item{
+    text-align: center;
+}
+
+.carousel-inner {
+    height: 650px;
+}
+
+.carousel-arrow{
+    font-size: 150px;
+    color: #e3ffff;
+    text-shadow: 7px 7px 2px #000;
+
+}
+
+.carousel li{
+    filter: invert(100%);
+}
+
+
+
