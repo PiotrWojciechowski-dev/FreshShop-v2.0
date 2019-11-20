@@ -34,7 +34,11 @@
             <tr>
                 <td>{{product.id}}</td>
                 <td>{{product.name}}</td>
-                <td><img src="{{product.image_thumbnail.url}}"alt = "{{product.name}}"></td>
+                <td><img src="{% if product.image %}
+                                {{product.image_thumbnail.url}}
+                              {% else %}
+                                {% static '/img/noimage.png' %}
+                              {% endif %}"alt = "{{product.name}}"></td>
                 <td>{{product.description}}</td>
                 <td>{{product.stock}}</td>
                 <td>&euro;{{product.price}}</td>
