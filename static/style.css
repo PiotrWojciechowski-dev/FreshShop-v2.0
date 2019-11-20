@@ -204,14 +204,14 @@ footer {
 }
 
 .carousel-inner {
-    height: 650px;
+    height: 500px;
 }
 
 .carousel-arrow{
     font-size: 150px;
     color: #e3ffff;
     text-shadow: 7px 7px 2px #000;
-
+    
 }
 
 .carousel li{
