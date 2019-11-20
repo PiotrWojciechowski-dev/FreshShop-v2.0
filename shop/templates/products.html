@@ -37,7 +37,7 @@
                 <td><img src="{% if product.image %}
                                 {{product.image_thumbnail.url}}
                               {% else %}
-                                {% static '/img/noimage.png' %}
+                                {% static 'img/noimage.jpg' %}
                               {% endif %}"alt = "{{product.name}}"></td>
                 <td>{{product.description}}</td>
                 <td>{{product.stock}}</td>
