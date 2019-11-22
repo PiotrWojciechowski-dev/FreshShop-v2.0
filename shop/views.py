@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+
 # Create your views here.
 
 def home_view(request):
@@ -37,4 +38,15 @@ def product_list(request, category_id=None):
             'products': products,
             'countcat': ccat,
         }
-    return render(request, 'products.html', context)
+    return render(request, 'product/products.html', context)
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product,
+                                id=id,
+                                slug=slug,
+                                available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request,
+                  'product/product_detail.html',
+                  {'product': product,
+                  'cart_product_form': cart_product_form})    
