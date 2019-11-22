@@ -20,7 +20,7 @@ class Cart(object):
         Add a product to the cart or update its quantity
         """
 
-        product_id = str(product_id)
+        product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
         if update_quantity:
@@ -37,7 +37,7 @@ class Cart(object):
         """
         Remove a product from the cart.
         """
-        product_id = str(product_id)
+        product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
@@ -50,7 +50,7 @@ class Cart(object):
 
         products_ids = self.cart.keys()
         # get the product objects and add them to the cart
-        products = Product.objects.filter(id__in=product_ids)
+        products = Product.objects.filter(id__in=products_ids)
         cart = self.cart.copy()
         for product in products:
             cart[str(product.id)]['product'] = product

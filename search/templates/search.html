@@ -5,7 +5,7 @@
 <div class="col-sm-3 max-auto">
     <h4 class="ml-2">Categories</h4>
     <ul class="list-group">
-        <a href="{% url 'products' %}" class="list-group-item"> All Categories </a>
+        <a href="{% url 'shop:products' %}" class="list-group-item"> All Categories </a>
         {% for c in countcat %} 
             <a href="{{ c.get_absolute_url }}" class="list-group-item catheight">{{c.name}}     
                     <span class="badge">{{c.num_products}}</span> 
@@ -39,7 +39,7 @@
                 <td>{{product.stock}}</td>
                 <td>&euro;{{product.price}}</td>
                 {% if product.stock > 0 %}
-                <td><a href="{% url 'add_cart' product.id %}" class="btn btn-default btn-xs"><span
+                <td><a href="{% url 'cart:cart_add' product.id %}" class="btn btn-default btn-xs"><span
                     class="glyphicon glyphicon-shopping-cart"></span></a></td>
                 {% else %}
                 <td><a href="" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-warning-sign red"></span></a></td>

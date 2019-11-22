@@ -6,7 +6,7 @@
 <div class="col-sm-2">
     <h4>Categories</h4>
     <ul class="list-group">
-        <a href="{% url 'products' %}" class="list-group-item"> All Categories </a>
+        <a href="{% url 'shop:products' %}" class="list-group-item"> All Categories </a>
         {% for c in countcat %} 
             <a href="{{ c.get_absolute_url }}" class="list-group-item catheight">{{c.name}}     
                 <span class="badge">{{c.num_products}}</span> 
@@ -43,8 +43,11 @@
                 <td>{{product.stock}}</td>
                 <td>&euro;{{product.price}}</td>
                 {% if product.stock > 0 %}
-                <td><a href="{% url 'add_cart' product.id %}" class="btn btn-default btn-xs">
-                    <i class="fi-xwsuhl-shopping-cart-solid"></i></a></td>
+                <td><a href="{% url 'cart:cart_add' product.id %}" method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <input type="submit" value="Add to cart" ><i class="fi-xwsuhl-shopping-cart-solid"></i>
+                  </form></a></td>
                 {% else %}
                 <td><a href="" class="btn btn-default btn-xs"><i class="fi-xtpuhl-shopping-cart-thin"></i></a></td>
                 {% endif %}
