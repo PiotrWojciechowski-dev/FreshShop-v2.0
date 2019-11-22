@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from cart.forms import CartAddProductForm
 
 # Create your views here.
 
@@ -17,13 +18,15 @@ def contact_us_view(request):
     template_name = 'contact_us.html'
     return render(request, 'contact_us.html', {})
 
-def product_list(request, category_id=None):
+
+def product_list(request, category_slug=None):
     category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
     product_list = Product.objects.all()
-    ccat = Category.objects.annotate(num_products=Count('products'))
-    if(category_id):
-        category = get_object_or_404(Category, id=category_id)
-        product_list = product_list.filter(category=category)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        product_list = products.filter(category=category)
     '''Pagination code'''
     paginator = Paginator(product_list, 3)
     try:
@@ -35,8 +38,9 @@ def product_list(request, category_id=None):
     except (EmptyPage, InvalidPage):
         products = paginator.page(paginator.num_pages)
     context = {
+            'category': category,
+            'categories': categories,
             'products': products,
-            'countcat': ccat,
         }
     return render(request, 'product/products.html', context)
 
@@ -49,4 +53,4 @@ def product_detail(request, id, slug):
     return render(request,
                   'product/product_detail.html',
                   {'product': product,
-                  'cart_product_form': cart_product_form})    
+                  'cart_product_form': cart_product_form})   

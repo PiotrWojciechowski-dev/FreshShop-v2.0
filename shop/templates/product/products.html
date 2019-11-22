@@ -1,60 +1,41 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
 {% block content %}
 <h1>On sale here</h1>
 <div class="row products">
 <div class="col-sm-2">
     <h4>Categories</h4>
-    <ul class="list-group">
-        <a href="{% url 'shop:products' %}" class="list-group-item"> All Categories </a>
-        {% for c in countcat %} 
-            <a href="{{ c.get_absolute_url }}" class="list-group-item catheight">{{c.name}}     
-                <span class="badge">{{c.num_products}}</span> 
-            </a> 
+    <ul>
+        <li {% if not category %}class="selected"{% endif %}>
+            <a href="{% url 'shop:product_list' %}">All</a>
+        </li>
+        {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
         {% endfor %}
     </ul>
 </div>
-<div class="col-sm-10">
-    <table class="table table-bordered table-hover table-condensed">
-        <thead>
-            <!-- The header row-->
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Buy</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Product row(s) -->
-            {% for product in products %}
-            <tr>
-                <td>{{product.id}}</td>
-                <td>{{product.name}}</td>
-                <td><img src="{% if product.image %}
-                                {{product.image_thumbnail.url}}
-                              {% else %}
-                                {% static 'img/noimage.jpg' %}
-                              {% endif %}"alt = "{{product.name}}"></td>
-                <td>{{product.description}}</td>
-                <td>{{product.stock}}</td>
-                <td>&euro;{{product.price}}</td>
-                {% if product.stock > 0 %}
-                <td><a href="{% url 'cart:cart_add' product.id %}" method="post">
-                    {{ cart_product_form }}
-                    {% csrf_token %}
-                    <input type="submit" value="Add to cart" ><i class="fi-xwsuhl-shopping-cart-solid"></i>
-                  </form></a></td>
-                {% else %}
-                <td><a href="" class="btn btn-default btn-xs"><i class="fi-xtpuhl-shopping-cart-thin"></i></a></td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div id="main" class="col-sm-10 product-list">
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    {% for product in products %}
+        <div class="item">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{% if product.image %}
+                        {{ product.image_thumbnail.url }}
+                    {% else %}
+                        {% static 'img/no_image.png' %}
+                    {% endif %}"alt = "{{product.name}}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+        €{{ product.price }}
+        </div>
+    {% endfor %}
 </div>
     <div class="mx-auto">
         {% if products.paginator.num_pages > 1 %}
