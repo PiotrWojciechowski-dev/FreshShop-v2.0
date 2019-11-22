@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
     'crispy_forms',
+    'vouchers.apps.VouchersConfig',
 ]
 
 MIDDLEWARE = [
