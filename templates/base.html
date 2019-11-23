@@ -23,18 +23,46 @@
                 <div class="account">
                     <ul class="navbar-nav d-inline-block">
                         {% if request.user.is_authenticated %}
-                        <li class="nav-item d-inline signedin">
+                        <li class="nav-item d-inline signeout">
                             <a href="{% url 'signout' %}">Sign Out <i class="fi-xnsuxl-sign-out-solid"></i></a>
                         </li>
-                        <li class="nav-item d-inline signedin"> 
+                        <li class="nav-item d-inline myaccount"> 
                             <a href="{% url 'order_history' %}">View Orders <i class="fas fa-sign-out-alt"></i></a>
+                        </li>
+                        <li class="cart">
+                            {% with total_items=cart|length %}
+                              {% if cart|length > 0 %}
+                              <a href="{% url 'cart:cart_detail' %}">
+                                <i class="fi-xwluhl-shopping-cart-wide"></i>
+                                {{ total_items }} Item{{ total_items|pluralize }}
+                                €{{ cart.get_total_price }}
+                              </a>
+                              {% else %}
+                              <i class="fi-xwluhl-shopping-cart-wide"></i>
+                                0 item(s)
+                              {% endif %}
+                            {% endwith %}
                         </li>
                         {% else %}
                         <li class="nav-item d-inline">
                                 <a href="{% url 'signup' %}">Sign Up <i class="fa fa-plus" aria-hidden="true"></i></a>
                         </li>
-                        <li>
+                        <li class="nav-item d-inline signin">
                             <a href="{% url 'signin' %}"> Sign In <i class="fi-xwsuxl-sign-in-solid"></i></a>  
+                        </li>
+                        <li class="nav-item d-inline cart">
+                            {% with total_items=cart|length %}
+                              {% if cart|length > 0 %}
+                              <a href="{% url 'cart:cart_detail' %}">
+                                    <i class="fi-xwluhl-shopping-cart-wide"></i>
+                                {{ total_items }} Item{{ total_items|pluralize }}
+                                €{{ cart.get_total_price }}
+                              </a>
+                              {% else %}
+                                <i class="fi-xwluhl-shopping-cart-wide"></i>
+                                0 item(s)
+                              {% endif %}
+                            {% endwith %}
                         </li>
                         {% endif %}
                     </ul>
@@ -66,20 +94,6 @@
             <div class="col-sm-2"></div>
         </nav>
 
-
-        <div class="cart">
-                {% with total_items=cart|length %}
-                  {% if cart|length > 0 %}
-                    Your cart:
-                  <a href="{% url 'cart:cart_detail' %}">
-                    {{ total_items }} item{{ total_items|pluralize }}
-                    €{{ cart.get_total_price }}
-                  </a>
-                  {% else %}
-                    Your cart is empty.
-                  {% endif %}
-                {% endwith %}
-              </div>
         {% block content %}
         {% endblock content %}
         <footer class="footer navbar-fixed-bottom text-center font-weight-bold">

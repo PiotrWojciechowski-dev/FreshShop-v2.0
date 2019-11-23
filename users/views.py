@@ -27,7 +27,7 @@ def signin_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('shop:home')
             else:
                 return redirect('signup')
     else:
@@ -36,4 +36,4 @@ def signin_view(request):
 
 def signout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('shop:home')
