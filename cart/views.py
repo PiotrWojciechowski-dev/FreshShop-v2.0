@@ -1,67 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 from shop.models import Product
-from .models import Cart, CartItem
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
+from .cart import Cart
+from .forms import CartAddProductForm
+
 # Create your views here.
 
-def _cart_id(request):
-	cart = request.session.session_key
-	if not cart:
-		cart = request.session.create()
-	return cart
-
-def add_cart(request, product_id):
-	product = Product.objects.get(id=product_id)
-	try:
-		cart = Cart.objects.get(cart_id=_cart_id(request))
-	except Cart.DoesNotExist:
-		cart = Cart.objects.create(
-				cart_id = _cart_id(request)
-			)
-		cart.save()
-	try:
-		cart_item = CartItem.objects.get(product=product, cart=cart)
-		if cart_item.quantity < cart_item.product.stock:
-			cart_item.quantity += 1
-			cart_item.save()
-		else:
-			messages.add_message(request, messages.INFO, 
-					'Sorry, no more of this item available')
-	except CartItem.DoesNotExist:
-		cart_item = CartItem.objects.create(
-					product = product,
-					quantity = 1,
-					cart = cart
-			)
-		cart_item.save()
-	return redirect('cart_detail')
-
-def cart_detail(request, total=0, counter=0, cart_items = None):
-	try:
-		cart = Cart.objects.get(cart_id=_cart_id(request))
-		cart_items = CartItem.objects.filter(cart=cart)
-		for cart_item in cart_items:
-			total += (cart_item.product.price * cart_item.quantity)
-			counter += cart_item.quantity
-	except ObjectDoesNotExist:
-		pass
-	return render(request, 'cart.html', dict(cart_items = cart_items, total = total, counter = counter))
+@require_POST
+def cart_add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product,
+                quantity=cd['quantity'],
+                update_quantity=cd['update'])
+    return redirect('cart:cart_detail')
 
 def cart_remove(request, product_id):
-	cart = Cart.objects.get(cart_id=_cart_id(request))
-	product = get_object_or_404(Product, id=product_id)
-	cart_item = CartItem.objects.get(product=product, cart=cart)
-	if cart_item.quantity > 1:
-		cart_item.quantity -= 1
-		cart_item.save()
-	else:
-		cart_item.delete()
-	return redirect('cart_detail')
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    cart.remove(product)
+    return redirect('cart:cart_detail')
 
-def full_remove(request):
-	cart = Cart.objects.get(cart_id=_cart_id(request))
-	cart_items = CartItem.objects.filter(cart=cart)
-	for cart_item in cart_items:
-		cart_item.delete()
-	return redirect('cart_detail')
+def cart_detail(request):
+    cart = Cart(request)
+    for item in cart:
+            item['update_quantity_form'] = CartAddProductForm(
+                    initial={'quantity': item['quantity'],
+                    'update': True})
+    return render(request, 'cart.html', {'cart': cart})

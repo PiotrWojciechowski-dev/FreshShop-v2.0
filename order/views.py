@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import OrderItem, Order
 from cart.models import Cart, CartItem
-from cart.views import _cart_id
 from shop.models import Product
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required

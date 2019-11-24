@@ -25,7 +25,7 @@ header img{
 
 .account{
     text-align: right;
-    margin-right: 13em;
+    margin-right: 2em;
     margin-bottom: 10px;
 }
 
@@ -40,15 +40,19 @@ header img{
     height: 20px;
     width: 1px;
     background: black;
-    margin: 0px 9px;
+    margin: 0px 8px;
 }
 
 .account a{
     text-decoration: none;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 10px;
     color: black;
     font-weight: bolder;
+}
+
+.signin{
+    margin-left: 5px;
 }
 
 .account a:hover{
@@ -67,11 +71,12 @@ header img{
     width: 0;
 }
 
-.account .signedin{
-    margin-right: -10px;
+.account .signedout{
+    margin-right: 5px;
 }
 
-.signedin ~ li::after{
+
+.signedout ~ li::after{
     content: "";
     position: absolute;
     top: 3px;
@@ -79,6 +84,14 @@ header img{
     width: 1px;
     background: black;
     margin: 0px 1px;
+}
+
+.account .myaccount{
+    margin-left: 8px;
+}
+
+.cart {
+    margin-left: 11px;
 }
 
 nav{
