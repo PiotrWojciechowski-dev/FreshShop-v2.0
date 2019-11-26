@@ -30,13 +30,14 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    total = 60
     for item in cart:
             item['update_quantity_form'] = CartAddProductForm(
                     initial={'quantity': item['quantity'],
                     'update': True})
+
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    stripe_total = int(total * 100)
-    description = 'Online Shop - New Order'
+    stripe_total = int(cart.get_total_price() * 100)
+    description = "Online Shop"
     data_key = settings.STRIPE_PUBLISHABLE_KEY
-    return render(request, 'cart.html', {'cart': cart}, dict(total=total, data_key = data_key, stripe_total = stripe_total, description = description))
+    return render(request, 'cart.html', {'cart': cart, 'data_key':data_key, 'stripe_total':stripe_total, 
+                                                                    'description':description})

@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'stripe',
     'paypal.standard.ipn',
-    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +145,5 @@ PAYPAL_TEST = True
 
 STRIPE_SECRET_KEY = 'sk_test_6umaOLKEqvEpQEyCPrHO73U100CTgwZNE8'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC'
+
+#pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC

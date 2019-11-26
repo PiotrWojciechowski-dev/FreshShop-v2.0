@@ -28,7 +28,7 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('signin/', views.signin_view, name='signin'),
     path('logout/', views.signout_view, name='signout'),
-    path('paypal/', include('paypal.standard.ipn.urls')), 
+    path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('shop.urls', namespace='shop')),
 ]
 

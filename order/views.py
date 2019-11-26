@@ -12,18 +12,6 @@ import stripe
 
 @login_required()
 def order_create(request, total=0, cart_items = None):
-    if request.method == 'POST':
-        cart = Cart.objects.get(cart_id=_cart_id(request))
-        cart_items = CartItem.objects.filter(cart=cart)
-        for item in cart_items:
-            total += (item.quantity * item.product.price)
-        print('Total', total)
-        charge = stripe.Charge.create(
-            amount=str(int(total*100)),
-            currency='EUR',
-            description='Credit card charge',
-            source=request.POST['stripetoken']
-        )
     if request.user.is_authenticated:
         email = str(request.user.email)
         order_details = Order.objects.create(emailAddress = email)
