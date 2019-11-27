@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout/', views.signout_view, name='signout'),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('shop.urls', namespace='shop')),
-    path('vouchers/', include('vouchers.urls', namespace='vouchers'))
+    path('vouchers/', include('vouchers.urls', namespace='vouchers')),
 ]
 
 if settings.DEBUG:
