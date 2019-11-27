@@ -1,24 +1,24 @@
-"""
+
 from decimal import Decimal
 from django.conf import settings
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from paypal.standard.forms import PayPalPaymentsForm
-from orders.models import Order
+from order.models import Order
 from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'payments/done.html')
+    return render(request, 'payments/payment_done.html')
 
 
 @csrf_exempt
 def payment_canceled(request):
-    return render(request, 'payments/canceled.html')
+    return render(request, 'payments/payment_canceled.html')
     
 
-def payment_process(request):
+def process_payment(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
     host = request.get_host()
@@ -34,6 +34,5 @@ def payment_process(request):
         'cancel_return': 'http://{}{}'.format(host, reverse('payment:canceled')),
     }
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'payments/process.html', {'order': order,
+    return render(request, 'payments/process_payment.html', {'order': order,
                                                     'form':form})
-"""

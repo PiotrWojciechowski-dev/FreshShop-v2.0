@@ -1,4 +1,4 @@
-"""
+
 from django.urls import path
 from . import views
 
@@ -10,4 +10,3 @@ urlpatterns = [
     path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
 
 ]
-"""
