@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'postal',
-    'localflavor',
 ]
 
 MIDDLEWARE = [

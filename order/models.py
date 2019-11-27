@@ -3,7 +3,6 @@ from shop.models import Product
 from decimal import Decimal
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_countries.fields import CountryField
-from localflavor.ie.forms import IECountySelect
 from vouchers.models import Voucher
 from django.utils.translation import gettext_lazy as _
 
