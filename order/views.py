@@ -10,9 +10,11 @@ from datetime import datetime, timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+import stripe
 # Create your views here.
 
 def order_create(request, total=0, cart_items = None):
+<<<<<<< HEAD
     cart = Cart(request)
     if request.method == 'POST':
         form = IEPostalAddressForm(request.POST)
@@ -46,6 +48,32 @@ def order_create(request, total=0, cart_items = None):
         form = IEPostalAddressForm()
     return render(request, 'order.html',{'cart':cart,
                                         'form':form,})
+=======
+    if request.user.is_authenticated:
+        email = str(request.user.email)
+        order_details = Order.objects.create(emailAddress = email)
+        order_details.save()
+    try:
+        for order_item in cart_items:
+            oi = OrderItem.objects.create(
+                product = order_item.product.name,
+                quantity = order_item.quantity,
+                price = order_item.product.price,
+                order = order_details
+            )
+            oi.save()
+
+            '''Reduce Stock when order is placed or saved'''
+            products = Product.objects.get(id=order_item.product.id)
+            if products.stock > 0:
+                products.stock = int(order_item.product.stock - order_item.quantity)
+            products.save()
+            order_item.delete()
+    except ObjectDoesNotExist:
+        pass
+   
+    return render(request, 'order.html', dict(cart_items = cart_items, total=total))
+>>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
 
 @login_required()
 def order_history(request):
