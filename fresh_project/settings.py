@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
-    'crispy_forms',
     'vouchers.apps.VouchersConfig',
+    'crispy_forms',
+    'django_countries',
+    'postal',
+    'localflavor',
 ]
 
 MIDDLEWARE = [
