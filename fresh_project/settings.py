@@ -41,11 +41,18 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
+<<<<<<< HEAD
+    'vouchers.apps.VouchersConfig',
+    'crispy_forms',
+    'django_countries',
+    'postal',
+=======
     'crispy_forms',
     'stripe',
     'paypal.standard.ipn',
     'vouchers.apps.VouchersConfig',
     'imagekit',
+>>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
 ]
 
 MIDDLEWARE = [
