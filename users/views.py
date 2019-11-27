@@ -3,7 +3,11 @@ from django.contrib.auth.models import Group, User
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
+from .email import Email
 # Create your views here.
+
+def index(request):
+    return render(request, 'home.html')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -11,9 +15,11 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            user_email = form.cleaned_data['email']
             signup_user = User.objects.get(username=username)
             customer_group = Group.objects.get(name='Customer')
             customer_group.user_set.add(signup_user)
+            Email.sendSignUpConfirmation(request, username, user_email)
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form':form})
