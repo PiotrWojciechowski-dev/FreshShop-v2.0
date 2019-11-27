@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
     'crispy_forms',
+<<<<<<< HEAD
     'stripe',
     'paypal.standard.ipn',
+=======
+    'vouchers.apps.VouchersConfig',
+>>>>>>> master
 ]
 
 MIDDLEWARE = [
