@@ -3,6 +3,10 @@ from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
+from django.conf import settings
+import stripe
+
+
 
 # Create your views here.
 
@@ -30,4 +34,10 @@ def cart_detail(request):
             item['update_quantity_form'] = CartAddProductForm(
                     initial={'quantity': item['quantity'],
                     'update': True})
-    return render(request, 'cart.html', {'cart': cart})
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    stripe_total = int(cart.get_total_price() * 100)
+    description = "Online Shop"
+    data_key = settings.STRIPE_PUBLISHABLE_KEY
+    return render(request, 'cart.html', {'cart': cart, 'data_key':data_key, 'stripe_total':stripe_total, 
+                                                                    'description':description})

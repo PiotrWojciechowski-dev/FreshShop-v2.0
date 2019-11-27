@@ -18,6 +18,7 @@ from django.urls import path, include
 from users import views
 from django.conf import settings
 from django.conf.urls.static import static
+from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +28,9 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('signin/', views.signin_view, name='signin'),
     path('logout/', views.signout_view, name='signout'),
+    path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('shop.urls', namespace='shop')),
-    path('vouchers/', include('vouchers.urls', namespace='vouchers'))
+    path('vouchers/', include('vouchers.urls', namespace='vouchers')),
 ]
 
 if settings.DEBUG:
