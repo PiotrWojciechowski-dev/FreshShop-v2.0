@@ -14,7 +14,6 @@ import stripe
 # Create your views here.
 
 def order_create(request, total=0, cart_items = None):
-<<<<<<< HEAD
     cart = Cart(request)
     if request.method == 'POST':
         form = IEPostalAddressForm(request.POST)
@@ -48,7 +47,6 @@ def order_create(request, total=0, cart_items = None):
         form = IEPostalAddressForm()
     return render(request, 'order.html',{'cart':cart,
                                         'form':form,})
-=======
     if request.user.is_authenticated:
         email = str(request.user.email)
         order_details = Order.objects.create(emailAddress = email)
@@ -73,7 +71,6 @@ def order_create(request, total=0, cart_items = None):
         pass
    
     return render(request, 'order.html', dict(cart_items = cart_items, total=total))
->>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
 
 @login_required()
 def order_history(request):
