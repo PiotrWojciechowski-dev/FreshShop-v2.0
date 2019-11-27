@@ -8,6 +8,7 @@ import stripe
 
 
 
+
 # Create your views here.
 
 @require_POST
@@ -41,3 +42,6 @@ def cart_detail(request):
     data_key = settings.STRIPE_PUBLISHABLE_KEY
     return render(request, 'cart.html', {'cart': cart, 'data_key':data_key, 'stripe_total':stripe_total, 
                                                                     'description':description})
+
+
+
