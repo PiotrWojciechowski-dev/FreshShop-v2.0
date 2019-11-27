@@ -24,7 +24,7 @@
                 <td>
                     <a href="{{ product.get_absolute_url }}">
                     <img src="{% if product.image %}
-                                    {{ product.image.url }}
+                                    {{ product.image_thumbnail.url }}
                                 {% else %}
                                     {% static 'img/no_image.png' %}                    
                                 {% endif %}"> 
@@ -80,6 +80,21 @@
     <p class="text-right">
         <a href="{% url 'shop:product_list' %}"
             class="buttonlight">Continue shopping</a>
-        <a href="#" class="button">Checkout</a>
     </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-right">
+                        <form action="{% url 'order_create' %}" method="POST">
+                            {% csrf_token %}
+                            <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{data_key}}"
+                            data-name="Online store"
+                            data-description="Online Shop - New Order"
+                            data-amount="{{stripe_total}}"
+                            data-currency="EUR"></script>
+                        </form>
+                    </p>
+                </div>
+            </div>
 {% endblock %}

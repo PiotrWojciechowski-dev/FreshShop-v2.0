@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
     'crispy_forms',
+    'stripe',
+    'paypal.standard.ipn',
     'vouchers.apps.VouchersConfig',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +140,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 CART_SESSION_ID = 'cart'
+
+#django-paypal settings
+PAYPAL_RECEIVER_EMAIL = 'sonalis.x00154002@mytudublin.ie'
+PAYPAL_TEST = True
+
+STRIPE_SECRET_KEY = 'sk_test_6umaOLKEqvEpQEyCPrHO73U100CTgwZNE8'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC'
+
+#pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC

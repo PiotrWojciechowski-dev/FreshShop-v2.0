@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from .models import Voucher
 from .forms import VoucherApplyForm
 
+
 # Create your views here.
 @require_POST
 def voucher_apply(request):

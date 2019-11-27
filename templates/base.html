@@ -35,7 +35,7 @@
                               <a href="{% url 'cart:cart_detail' %}">
                                 <i class="fi-xwluhl-shopping-cart-wide"></i>
                                 {{ total_items }} Item{{ total_items|pluralize }}
-                                €{{ cart.get_total_price }}
+                                €{{ cart.get_total_price_after_discount }}
                               </a>
                               {% else %}
                               <i class="fi-xwluhl-shopping-cart-wide"></i>

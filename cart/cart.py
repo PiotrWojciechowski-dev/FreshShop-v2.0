@@ -89,3 +89,4 @@ class Cart(object):
         if self.voucher_id:
             return Voucher.objects.get(id=self.voucher_id)
         return None
+

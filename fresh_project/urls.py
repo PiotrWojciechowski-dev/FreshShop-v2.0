@@ -24,12 +24,12 @@ urlpatterns = [
     path('vouchers/', include('vouchers.urls', namespace='vouchers')),
     path('search/', include('search.urls')),
     path('order/', include('order.urls')),
+    path('cart/', include('cart.urls', namespace='cart')),
     path('signup/', views.signup_view, name='signup'),
     path('signin/', views.signin_view, name='signin'),
     path('logout/', views.signout_view, name='signout'),
+    path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('shop.urls', namespace='shop')),
-    path('cart/', include('cart.urls', namespace='cart')),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

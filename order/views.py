@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+import stripe
 # Create your views here.
 
 @login_required()
@@ -16,8 +17,6 @@ def order_create(request, total=0, cart_items = None):
         order_details = Order.objects.create(emailAddress = email)
         order_details.save()
     try:
-        cart = Cart.objects.get(cart_id=_cart_id(request))
-        cart_items = CartItem.objects.filter(cart=cart)
         for order_item in cart_items:
             oi = OrderItem.objects.create(
                 product = order_item.product.name,
@@ -25,7 +24,6 @@ def order_create(request, total=0, cart_items = None):
                 price = order_item.product.price,
                 order = order_details
             )
-            total += (order_item.quantity * order_item.product.price)
             oi.save()
 
             '''Reduce Stock when order is placed or saved'''
@@ -36,6 +34,7 @@ def order_create(request, total=0, cart_items = None):
             order_item.delete()
     except ObjectDoesNotExist:
         pass
+   
     return render(request, 'order.html', dict(cart_items = cart_items, total=total))
 
 @login_required()
