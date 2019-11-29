@@ -7,6 +7,7 @@ import django_countries.fields
 
 
 class Migration(migrations.Migration):
+    atomic = False
 
     dependencies = [
         ('vouchers', '0001_initial'),

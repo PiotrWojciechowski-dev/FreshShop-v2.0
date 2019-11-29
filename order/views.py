@@ -19,6 +19,10 @@ def order_create(request, total=0, cart_items = None):
         form = IEPostalAddressForm(request.POST)
         if form.is_valid():
             print("Inside if")
+            order = form.save(commit=False)
+            if cart.voucher:
+                order.voucher = cart.voucher
+                order.discount = cart.voucher.discount
             order = form.save()
             order.save()
         for order_item in cart:
