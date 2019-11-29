@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'vouchers.apps.VouchersConfig',
     'crispy_forms',
     'django_countries',
+<<<<<<< Updated upstream
     'postal',
 =======
     'crispy_forms',
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'vouchers.apps.VouchersConfig',
     'imagekit',
 >>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
+=======
+>>>>>>> Stashed changes
 ]
 
 MIDDLEWARE = [

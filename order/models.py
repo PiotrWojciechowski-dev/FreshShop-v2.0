@@ -55,16 +55,6 @@ class Order(models.Model):
 
     country = CountryField(null=True).formfield()
 
-    voucher = models.ForeignKey(Voucher,
-                                related_name='order',
-                                null=True,
-                                blank=True,
-                                on_delete=models.SET_NULL)
-
-    discount = models.IntegerField(default=0,
-                                    validators=[MinValueValidator(0),
-                                    MaxValueValidator(100)])
-
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -77,8 +67,7 @@ class Order(models.Model):
         return 'Order {}'.format(self.id)
 
     def get_total_cost(self):
-        total_cost = sum(item.get_cost() for item in self.items.all())
-        return total_cost - total_cost * (self.discount / Decimal('100'))
+        return sum(item.get_cost() for item in self.items.all())
 
     def get_items(self):
         return OrderItem.objects.filter(order=self)
