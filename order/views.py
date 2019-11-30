@@ -34,6 +34,10 @@ def order_create(request, total=0, cart_items = None):
         request.session['order_id'] = order.id
         return redirect(reverse('payment:process'))
         
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
         Reduce Stock when order is placed or saved
         products = Product.objects.get(id=order_item.product.id)
         if products.stock > 0:
