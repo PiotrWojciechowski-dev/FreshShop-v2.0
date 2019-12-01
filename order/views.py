@@ -30,6 +30,7 @@ def order_create(request, total=0, cart_items = None):
                                     price=order_item['price'],
                                     quantity=order_item['quantity'])
         cart.clear()
+        # set up stripe
         total = Cart.get_total_price_after_discount(cart)
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe_total = int(total * 100)
@@ -53,8 +54,14 @@ def order_create(request, total=0, cart_items = None):
     else: 
         print('Inside else')
         form = IEPostalAddressForm()
+         # set up stripe
+        total = Cart.get_total_price_after_discount(cart)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe_total = int(total * 100)
+        description = "Online Shop"
+        data_key = settings.STRIPE_PUBLISHABLE_KEY
     return render(request, 'order.html',{'cart':cart,
-                                        'form':form,})
+                                        'form':form, 'data_key':data_key, 'stripe_total':stripe_total, 'description':description, 'total':total})
     if request.user.is_authenticated:
         email = str(request.user.email)
         order_details = Order.objects.create(emailAddress = email)
@@ -78,7 +85,7 @@ def order_create(request, total=0, cart_items = None):
     except ObjectDoesNotExist:
         pass
    
-    return render(request, 'order.html', dict(cart_items = cart_items, total=total))
+    return render(request, 'order.html', {'cart_items':cart_items, 'total':total})
 
 def payment_method(request, total=0):
     order_id = order.id
