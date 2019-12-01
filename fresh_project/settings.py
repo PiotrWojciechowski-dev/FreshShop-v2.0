@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'postal',
     'stripe',
     'paypal.standard.ipn',
-    'payment.apps.PaymentConfig'
     'imagekit',
 ]
 

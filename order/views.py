@@ -10,34 +10,39 @@ from datetime import datetime, timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.conf import settings
 import stripe
 # Create your views here.
 
 def order_create(request, total=0, cart_items = None):
     cart = Cart(request)
     if request.method == 'POST':
+       
         form = IEPostalAddressForm(request.POST)
         if form.is_valid():
             print("Inside if")
             order = form.save()
             order.save()
+         
         for order_item in cart:
             OrderItem.objects.create(order=order,
                                     product=order_item['product'],
                                     price=order_item['price'],
                                     quantity=order_item['quantity'])
         cart.clear()
-        return render(request, 'order_created.html', {'order': order})
+        total = Cart.get_total_price_after_discount(cart)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe_total = int(total * 100)
+        description = "Online Shop"
+        data_key = settings.STRIPE_PUBLISHABLE_KEY
+        return render(request, 'payment.html', {'order': order, 'data_key':data_key, 'stripe_total':stripe_total, 'description':description, 'total':total})
+
         '''
         cart.clear()
         order_created.delay(order.id)
         request.session['order_id'] = order.id
         return redirect(reverse('payment:process'))
         
-<<<<<<< HEAD
-=======
-
->>>>>>> master
         Reduce Stock when order is placed or saved
         products = Product.objects.get(id=order_item.product.id)
         if products.stock > 0:
@@ -75,6 +80,21 @@ def order_create(request, total=0, cart_items = None):
    
     return render(request, 'order.html', dict(cart_items = cart_items, total=total))
 
+def payment_method(request, total=0):
+    order_id = order.id
+    total = order_create.total
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=str(int(total * 100)),
+            currency='EUR',
+            description='Credit card charge',
+            source=request.POST['stripetoken']
+        )
+    return render(request, 'order_created.html', {'order_id':order_id})
+
+def order_created(request):
+    return render(request, 'order_created.html')
+
 @login_required()
 def order_history(request):
     if request.user.is_authenticated:
@@ -101,7 +121,7 @@ def cancel_order(request, order_id):
     current_date = datetime.now(timezone.utc)
     date_diff = current_date - order_date
     minutes_diff = date_diff.total_seconds() / 60.0
-    if minutes_diff <= 30:
+    if minutes_diff <= 500:
         adjust_stock(request, order_id)
         order.delete()
         messages.add_message(request, messages.INFO, 
@@ -112,7 +132,7 @@ def cancel_order(request, order_id):
     return redirect('order_history')
 
 
-'''
+
 def adjust_stock(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
@@ -120,4 +140,3 @@ def adjust_stock(request, order_id):
         product = get_object_or_404(Product, name=order_item.product)
         product.stock += order_item.quantity
         product.save()  
-'''
