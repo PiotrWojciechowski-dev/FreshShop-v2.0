@@ -28,7 +28,7 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         product_list = products.filter(category=category)
     '''Pagination code'''
-    paginator = Paginator(product_list, 3)
+    paginator = Paginator(product_list, 6)
     try:
         page = int(request.GET.get('page','1'))
     except:
