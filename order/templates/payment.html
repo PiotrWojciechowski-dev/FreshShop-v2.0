@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Payment screen
+{% endblock %}
+
+{% block content %}
+    <h2>You will need to provide payment information before checking out</h2>
+    <div class="row">
+            <div class="col-md-12">
+                <p class="text-right">
+                    <form action="{% url 'order_created' %}">
+                        {% csrf_token %}
+                        <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="{{data_key}}"
+                        data-name="Online store"
+                        data-description="Online Shop - New Order"
+                        data-amount="{{stripe_total}}"
+                        data-currency="EUR"></script>
+                    </form>
+                </p>
+            </div>
+            <div class="col-md-12">
+                <p>
+                    <a href="{% url 'cancel_order' order.id %}"><button class="btn btn-danger">Cancel Order</button></a>
+                </p>
+            </div>
+        </div>
+{% endblock %}

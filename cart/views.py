@@ -8,6 +8,8 @@ from django.conf import settings
 import stripe
 
 
+
+
 # Create your views here.
 
 @require_POST
@@ -35,11 +37,7 @@ def cart_detail(request):
                     initial={'quantity': item['quantity'],
                     'update': True})
     voucher_apply_form = VoucherApplyForm()
+    return render(request, 'cart.html', {'cart': cart, 'voucher_apply_form': voucher_apply_form})
 
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    stripe_total = int(cart.get_total_price_after_discount() * 100)
-    description = "Online Shop"
-    data_key = settings.STRIPE_PUBLISHABLE_KEY
-    return render(request, 'cart.html', {'cart': cart, 'voucher_apply_form': voucher_apply_form, 'data_key':data_key, 'stripe_total':stripe_total, 
-                                                                    'description':description})
+
 

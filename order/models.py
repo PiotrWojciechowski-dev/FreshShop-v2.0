@@ -52,7 +52,7 @@ class Order(models.Model):
         max_length=250,
         null=True,
     )
-
+    
     country = CountryField(null=True).formfield()
 
     voucher = models.ForeignKey(Voucher,

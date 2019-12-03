@@ -44,7 +44,14 @@ INSTALLED_APPS = [
     'vouchers.apps.VouchersConfig',
     'crispy_forms',
     'django_countries',
+<<<<<<< HEAD
     'paypal'
+=======
+    'postal',
+    'stripe',
+    'paypal.standard.ipn',
+    'imagekit',
+>>>>>>> master
 ]
 
 MIDDLEWARE = [
@@ -144,7 +151,7 @@ CART_SESSION_ID = 'cart'
 PAYPAL_RECEIVER_EMAIL = 'sonalis.x00154002@mytudublin.ie'
 PAYPAL_TEST = True
 
+
+#django-stripe keys
 STRIPE_SECRET_KEY = 'sk_test_6umaOLKEqvEpQEyCPrHO73U100CTgwZNE8'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC'
-
-#pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC
