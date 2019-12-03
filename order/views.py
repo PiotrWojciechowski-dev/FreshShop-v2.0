@@ -14,7 +14,7 @@ from django.conf import settings
 import stripe
 # Create your views here.
 
-def order_create(request, total=0, cart_items = None):
+def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
        
@@ -62,6 +62,7 @@ def order_create(request, total=0, cart_items = None):
         data_key = settings.STRIPE_PUBLISHABLE_KEY
     return render(request, 'order.html',{'cart':cart,
                                         'form':form, 'data_key':data_key, 'stripe_total':stripe_total, 'description':description, 'total':total})
+    '''
     if request.user.is_authenticated:
         email = str(request.user.email)
         order_details = Order.objects.create(emailAddress = email)
@@ -76,7 +77,7 @@ def order_create(request, total=0, cart_items = None):
             )
             oi.save()
 
-            '''Reduce Stock when order is placed or saved'''
+            Reduce Stock when order is placed or saved
             products = Product.objects.get(id=order_item.product.id)
             if products.stock > 0:
                 products.stock = int(order_item.product.stock - order_item.quantity)
@@ -86,7 +87,7 @@ def order_create(request, total=0, cart_items = None):
         pass
    
     return render(request, 'order.html', {'cart_items':cart_items, 'total':total})
-
+'''
 def payment_method(request, total=0):
     order_id = order.id
     total = order_create.total
