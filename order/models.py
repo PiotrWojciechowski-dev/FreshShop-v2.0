@@ -56,6 +56,7 @@ class Order(models.Model):
     country = CountryField(null=True).formfield()
 
     paid = models.BooleanField(default=False)
+
     voucher = models.ForeignKey(Voucher,
                                 related_name='order',
                                 null=True,
@@ -80,7 +81,10 @@ class Order(models.Model):
     def get_total_cost(self):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
-
+    
+    def get_total(self):
+        return sum(item.get_cost() for item in self.items.all())
+        
     def get_items(self):
         return OrderItem.objects.filter(order=self)
 

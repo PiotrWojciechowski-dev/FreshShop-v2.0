@@ -20,7 +20,6 @@ from .email import Email
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
-       
         form = IEPostalAddressForm(request.POST)
         if form.is_valid():
             print("Inside if")
@@ -33,7 +32,7 @@ def order_create(request):
                                     price=order_item['price'],
                                     quantity=order_item['quantity'])
         cart.clear()
-        request.session['order_id'] = order.id
+        #request.session['order_id'] = order.id
         # set up stripe
         total = Cart.get_total_price_after_discount(cart)
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -128,6 +127,7 @@ def cancel_order(request, order_id):
     else:
         messages.add_message(request, messages.INFO,
                     'Sorry, it is too late to cancel this order')
+    Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
     return redirect('order_history')
 
 
@@ -142,12 +142,11 @@ def adjust_stock(request):
 
 
 def payment_method(request, total=0):
-    #order_id = request.session.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
     #order - get_object_or_404(Order, id-order_id)
     #host = request.get_host()
-    print("hello world")
-    print(order_create.total)
-    total = order_create.total
+    #order = get_object_or_404(Order, id=order_id)
+    total = order.get_total_cost()
     if request.method == 'POST':
         charge = stripe.Charge.create(
             amount=str(int(total * 100)),
@@ -163,15 +162,21 @@ def payment_method(request, total=0):
         'invoice': str(order.id),
         'currency_code': 'EUR',
         'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
-        'return_url': 'http://{}{}'.format(host, reverse('payment:done')),
-        'cancel_return': 'http://{}{}'.format(host, reverse('payment:canceled')),  
+        'return_url': 'http://{}{}'.format(host, reverse('order_created')),
+        'cancel_return': 'http://{}{}'.format(host, reverse('cancelled')),  
     }
     form = PaypalPaymentsForm(initial=paypal_dict)
     """
+    
     return render(request, 'payment.html', {'form':form, 'order':order})
 
 @csrf_exempt
-def order_created(request):
+def order_created(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    total = order.get_total()
+    order.paid = True
+    order.save()
+    Email.sendPaymentConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
     return render(request, 'order_created.html')
 
 @csrf_exempt
