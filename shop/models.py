@@ -1,7 +1,9 @@
 from django.db import models
+from django.db.models import Avg
 from django.urls import reverse
 from imagekit.models import ImageSpecField 
 from imagekit.processors import ResizeToFill
+from .fields import OrderField
 
 # Create your models here.
 
@@ -45,9 +47,30 @@ class Product(models.Model):
         ordering = ('name',)
         index_together = (('id', 'slug'),)
 
+    def average_rating(self):
+        return self.review_set.aggregate(Avg('rating'))['rating__avg']
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
             return reverse('shop:product_detail',
-                           args=[self.id, self.slug])               
+                           args=[self.id, self.slug])    
+
+
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1,'1'),
+        (2,'2'),
+        (3,'3'),
+        (4,'4'),
+        (5,'5'),
+    ) 
+    pub_date = models.DateTimeField('date published')
+    user_name = models.CharField(max_length=100)
+    comment = models.CharField(max_length = 200)
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    order = OrderField(blank=True, for_fields=['product'])   
+
+    class Meta:
+        ordering = ['order']  
