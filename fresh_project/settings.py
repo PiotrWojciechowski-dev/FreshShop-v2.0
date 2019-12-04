@@ -44,14 +44,10 @@ INSTALLED_APPS = [
     'vouchers.apps.VouchersConfig',
     'crispy_forms',
     'django_countries',
-<<<<<<< HEAD
-    'paypal'
-=======
-    'postal',
     'stripe',
     'paypal.standard.ipn',
     'imagekit',
->>>>>>> master
+    'django_filters',
 ]
 
 MIDDLEWARE = [
