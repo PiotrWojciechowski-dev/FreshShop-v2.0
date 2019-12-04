@@ -55,6 +55,7 @@ class Order(models.Model):
     
     country = CountryField(null=True).formfield()
 
+    paid = models.BooleanField(default=False)
     voucher = models.ForeignKey(Voucher,
                                 related_name='order',
                                 null=True,

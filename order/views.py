@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.conf import settings
 import stripe
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+from .email import Email
 # Create your views here.
 
 def order_create(request):
@@ -30,12 +33,14 @@ def order_create(request):
                                     price=order_item['price'],
                                     quantity=order_item['quantity'])
         cart.clear()
+        request.session['order_id'] = order.id
         # set up stripe
         total = Cart.get_total_price_after_discount(cart)
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe_total = int(total * 100)
         description = "Online Shop"
         data_key = settings.STRIPE_PUBLISHABLE_KEY
+        Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
         return render(request, 'payment.html', {'order': order, 'data_key':data_key, 'stripe_total':stripe_total, 'description':description, 'total':total})
 
         '''
@@ -88,20 +93,6 @@ def order_create(request):
    
     return render(request, 'order.html', {'cart_items':cart_items, 'total':total})
 '''
-def payment_method(request, total=0):
-    order_id = order.id
-    total = order_create.total
-    if request.method == 'POST':
-        charge = stripe.Charge.create(
-            amount=str(int(total * 100)),
-            currency='EUR',
-            description='Credit card charge',
-            source=request.POST['stripetoken']
-        )
-    return render(request, 'order_created.html', {'order_id':order_id})
-
-def order_created(request):
-    return render(request, 'order_created.html')
 
 @login_required()
 def order_history(request):
@@ -130,8 +121,8 @@ def cancel_order(request, order_id):
     date_diff = current_date - order_date
     minutes_diff = date_diff.total_seconds() / 60.0
     if minutes_diff <= 500:
-        adjust_stock(request, order_id)
         order.delete()
+        adjust_stock(request, order_id)
         messages.add_message(request, messages.INFO, 
                     'Order is now cancelled')
     else:
@@ -141,10 +132,48 @@ def cancel_order(request, order_id):
 
 
 
-def adjust_stock(request, order_id):
+def adjust_stock(request):
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
     for order_item in order_items:
         product = get_object_or_404(Product, name=order_item.product)
         product.stock += order_item.quantity
         product.save()  
+
+
+def payment_method(request, total=0):
+    #order_id = request.session.get('order_id')
+    #order - get_object_or_404(Order, id-order_id)
+    #host = request.get_host()
+    print("hello world")
+    print(order_create.total)
+    total = order_create.total
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=str(int(total * 100)),
+            currency='EUR',
+            description='Credit card charge',
+            source=request.POST['stripetoken']
+        )
+    """
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': total,
+        'item_name': 'Order {}'.format(order.id),
+        'invoice': str(order.id),
+        'currency_code': 'EUR',
+        'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host, reverse('payment:done')),
+        'cancel_return': 'http://{}{}'.format(host, reverse('payment:canceled')),  
+    }
+    form = PaypalPaymentsForm(initial=paypal_dict)
+    """
+    return render(request, 'payment.html', {'form':form, 'order':order})
+
+@csrf_exempt
+def order_created(request):
+    return render(request, 'order_created.html')
+
+@csrf_exempt
+def payment_cancelled(request):
+    return render(request, 'cancelled.html')

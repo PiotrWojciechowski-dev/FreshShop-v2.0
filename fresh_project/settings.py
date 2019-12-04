@@ -144,7 +144,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CART_SESSION_ID = 'cart'
 
 #django-paypal settings
-PAYPAL_RECEIVER_EMAIL = 'sonalis.x00154002@mytudublin.ie'
+PAYPAL_RECEIVER_EMAIL = 'x00154002@mytudublin.ie'
 PAYPAL_TEST = True
 
 
