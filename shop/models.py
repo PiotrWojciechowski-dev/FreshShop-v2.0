@@ -41,12 +41,6 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
-<<<<<<< HEAD
-    object_id = models.PositiveIntegerField(null = True)
-
-    
-=======
->>>>>>> piotr
 
     class Meta:
         ordering = ('name',)

@@ -94,19 +94,12 @@ class Order(models.Model):
     def __str__(self):
         return 'Order {}'.format(self.id)
 
-<<<<<<< HEAD
     def get_total_cost(self):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
     
     def get_total(self):
         return sum(item.get_cost() for item in self.items.all())
-=======
-
-    def get_total_cost(self):
-        total_cost = sum(item.get_cost() for item in self.items.all())
-        return total_cost - total_cost * (self.discount / Decimal('100'))
->>>>>>> piotr
         
     def get_items(self):
         return OrderItem.objects.filter(order=self)

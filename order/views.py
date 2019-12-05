@@ -17,49 +17,28 @@ from django.views.decorators.csrf import csrf_exempt
 from .email import Email
 # Create your views here.
 
-<<<<<<< HEAD
-def order_create(request):
-=======
 def order_create(request, total=0):
->>>>>>> piotr
     cart = Cart(request)
     if request.method == 'POST':
         form = IEPostalAddressForm(request.POST)
         if form.is_valid():
-<<<<<<< HEAD
-            print("Inside if")
-=======
->>>>>>> piotr
             order = form.save(commit=False)
             if cart.voucher:
                 order.voucher = cart.voucher
                 order.discount = cart.voucher.discount
-<<<<<<< HEAD
             order = form.save()
-=======
->>>>>>> piotr
             order.save()
         for order_item in cart:
             OrderItem.objects.create(order=order,
                                     product=order_item['product'],
                                     price=order_item['price'],
                                     quantity=order_item['quantity'])
-<<<<<<< HEAD
         cart.clear()
         total = Cart.get_total_price_after_discount(cart)
         Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
         return render(request, 'order_created.html', {'order': order, 'total':total})
-=======
-        total = Cart.get_total_price_after_discount(cart)
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        stripe_total = int(total * 100)
-        description = "Online Shop"
-        data_key = settings.STRIPE_PUBLISHABLE_KEY
-        return render(request, 'payment.html', {'order': order, 'data_key':data_key, 'stripe_total':stripe_total, 'description':description, 'total':total})
->>>>>>> piotr
     else: 
         form = IEPostalAddressForm()
-<<<<<<< HEAD
     return render(request, 'order.html',{'cart':cart, 'form':form})
 
 def order_created(request):
@@ -69,10 +48,6 @@ def order_created(request):
     order.save()
     Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
     return render(request, 'order_created.html', {'order':order})
-=======
-    return render(request, 'order.html',{'cart':cart,
-                                        'form':form,})
->>>>>>> piotr
 
 @login_required()
 def order_history(request):
@@ -100,11 +75,7 @@ def cancel_order(request, order_id):
     current_date = datetime.now(timezone.utc)
     date_diff = current_date - order_date
     minutes_diff = date_diff.total_seconds() / 60.0
-<<<<<<< HEAD
     if minutes_diff <= 500:
-=======
-    if minutes_diff <= 30:
->>>>>>> piotr
         order.delete()
         adjust_stock(request, order_id)
         messages.add_message(request, messages.INFO, 
@@ -128,20 +99,7 @@ def payment_method(request, total=0):
     return render(request, 'order_created.html', {'order_id':order_id})
 
 def order_created(request):
-    cart = Cart(request)
-    cart.clear()
     return render(request, 'order_created.html')
-
-
-<<<<<<< HEAD
-def adjust_stock(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    order_items = OrderItem.objects.filter(order=order)
-    for order_item in order_items:
-        product = get_object_or_404(Product, name=order_item.product)
-        product.stock += order_item.quantity
-        product.save()  
-
 
 def payment_method(request, order_id):
     print(order_id)
@@ -197,5 +155,3 @@ def payment_made_paypal(request):
 @csrf_exempt
 def payment_cancelled(request):
     return render(request, 'cancelled.html')
-=======
->>>>>>> piotr

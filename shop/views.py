@@ -23,14 +23,9 @@ def contact_us_view(request):
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
-<<<<<<< HEAD
-    product_list = Product.objects.all()
-    f = ProductFilter(request.GET, queryset=Product.objects.all())
-=======
     products = Product.objects.all()
     products_filter = ProductFilter(request.GET, queryset=Product.objects.all())
     products = products_filter.qs
->>>>>>> piotr
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         product_list = products.filter(category=category)
@@ -47,11 +42,7 @@ def product_list(request, category_slug=None):
             'category': category,
             'categories': categories,
             'products': products,
-<<<<<<< HEAD
-            'filter': f,
-=======
             'filter': products_filter,
->>>>>>> piotr
         }
     return render(request, 'product/products.html', context)
 

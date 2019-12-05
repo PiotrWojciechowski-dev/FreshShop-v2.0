@@ -7,31 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-<h1>On sale here</h1>
-<div class="row products">
-<div class="col-sm-2">
-    <form action="" method="get">
-        {{ filter.form.as_p }}
-        <input type="submit" />
-    </form>
-</div>
-<div id="main" class="col-sm-10 product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
-    {% for product in filter.qs %}
-    <div class="item">
-        <a href="{{ product.get_absolute_url }}">
-            <img src="{% if product.image %}
-                            {{ product.image_thumbnail.url }}
-                        {% else %}
-                            {% static 'img/no_image.png' %}
-                        {% endif %}" alt="{{product.name}}">
-        </a>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
-        €{{ product.price }}
-    </div>
-    {% endfor %}
-=======
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2"></div>
@@ -59,7 +34,6 @@
                     {% endfor %}
             </div>
         </div>
->>>>>>> piotr
 </div>
     <div class="col-sm-2"></div>
         <div class="row">

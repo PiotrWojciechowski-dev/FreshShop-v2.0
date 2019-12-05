@@ -6,10 +6,6 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     atomic = False
-<<<<<<< HEAD
-
-=======
->>>>>>> piotr
 
     dependencies = [
         ('order', '0006_auto_20191127_1046'),
