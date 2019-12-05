@@ -46,7 +46,14 @@
         </div>
         <p>
             <a href="{% url 'cancel_order' order.id %}"><button class="btn btn-primary">Cancel Order</button></a>
-        </p>
+		</p>
+		{% if order.paid == False %}
+		<p>
+            <a href="{% url 'payment' order.id %}"><button class="btn custom-button col-sm-5">Pay Now</button></a>
+		</p>
+		{% else %}
+		<p class="custom-button p-2 text-center">Item is paid</p>
+		{% endif %}
 	{% endfor %}
 	<div class="mx-auto">
 		{% if orders.paginator.num_pages > 1 %}
