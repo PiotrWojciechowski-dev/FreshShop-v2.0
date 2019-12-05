@@ -274,3 +274,24 @@ footer {
 .return a{
     text-decoration: none;
 }
+/* checkout */
+
+.box-checkout{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    background: #e3ffff;
+    min-height: 404px;
+    width: 50%;
+    margin-right: auto;
+}
+
+.box-ordercheckout{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    background: #e3ffff;
+    min-height: 404px;
+    width: 50%;
+    margin-right: auto;
+}

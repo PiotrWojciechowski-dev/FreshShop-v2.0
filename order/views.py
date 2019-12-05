@@ -26,6 +26,9 @@ def order_create(request, total=0):
             if cart.voucher:
                 order.voucher = cart.voucher
                 order.discount = cart.voucher.discount
+            if request.user.is_authenticated:
+                username = str(request.user.username)
+                order.username = username
             order = form.save()
             order.save()
         for order_item in cart:
@@ -43,7 +46,7 @@ def order_create(request, total=0):
 
 def order_created(request):
     order = get_object_or_404(Order, id=order_id)
-    total = order.get_total()
+    total = order.get_total_cost()
     order.paid = True
     order.save()
     Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
@@ -52,8 +55,8 @@ def order_created(request):
 @login_required()
 def order_history(request):
     if request.user.is_authenticated:
-        email = str(request.user.email)
-        order_details = Order.objects.filter(emailAddress=email)
+        username = str(request.user.get_username())
+        order_details = Order.objects.filter(username=username)
         '''Pagination code'''
         paginator = Paginator(order_details, 3)
         try:
@@ -77,7 +80,7 @@ def cancel_order(request, order_id):
     minutes_diff = date_diff.total_seconds() / 60.0
     if minutes_diff <= 500:
         order.delete()
-        messages.success(request, messages.INFO, 
+        messages.add_message(request, messages.INFO, 
                     'Order is now cancelled')
         Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     else:
@@ -136,7 +139,7 @@ def payment_made(request, order_id):
             source=request.POST['stripetoken']
         )
     order = get_object_or_404(Order, id=order_id)
-    total = order.get_total()
+    total = order.get_total_cost()
     order.paid = True
     order.save()
     Email.sendPaymentConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
@@ -145,7 +148,7 @@ def payment_made(request, order_id):
 @csrf_exempt
 def payment_made_paypal(request):
     order = get_object_or_404(Order, id=order_id)
-    total = order.get_total()
+    total = order.get_total_cost()
     order.paid = True
     order.save()
     Email.sendPaymentConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
