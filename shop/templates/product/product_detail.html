@@ -6,21 +6,31 @@
 {% endblock %}
 
 {% block content %}
-  <div class="product-detail">
-    <img src="{% if product.image %}
-                {{ product.image_thumbnail.url }}
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-5 ml-5 my-5 product-image">
+    <img class="mt-1" src="{% if product.image %}
+                {{ product.image.url }}
               {% else %}
                 {% static 'img/no_image.png' %}
               {% endif %}">
-    <h1>{{ product.name }}</h1>
-    <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-    <p class="price">€{{ product.price }}</p>
-    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+    <h1 class="mt-4">{{ product.name }}</h1>
+    <p class="price">Price: €{{ product.price }}</p>
+    <form class="" action="{% url 'cart:cart_add' product.id %}" method="post">
       {{ cart_product_form }}
       {% csrf_token %}
-      <input type="submit" value="Add to cart">
+      <input class="custom-button-2" type="submit" value="Add to cart">
     </form>
-    
+    <button class="custom-button return mt-4" type="submit"><a class="text-dark" href="{% url 'shop:product_list' %}">Return to Products</a></button>
+    </div>
+    <div class="col-sm-3 my-5 ml-3">
+      <div class="card description-border w-75 mt-5">
+        <div class="card-body">
+          <h4 class="font-weight-bold">Description:</h4>
     {{ product.description|linebreaks }}
-  </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>  
 {% endblock %}

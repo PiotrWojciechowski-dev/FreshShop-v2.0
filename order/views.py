@@ -83,6 +83,7 @@ def cancel_order(request, order_id):
         order.delete()
         messages.add_message(request, messages.INFO, 
                     'Order is now cancelled')
+        Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     else:
         messages.add_message(request, messages.INFO,
                     'Sorry, it is too late to cancel this order')

@@ -249,12 +249,31 @@ footer {
     width: 65%;
 }
 
-/* Products */
+/* Product Detail */
 
-.products {
-    margin: auto;
+.custom-button-2{
+    border: 2px black solid;
+    border-radius: 10px;
+    color: black;
+    background: #e3ffff;
+    cursor: pointer;
+    width: 20%;
+    margin-left: 10px;
 }
 
+.description-border{
+    border: 1px black solid;
+    border-radius: 5px;
+    margin-left: 0px;
+}
+
+.product-image img{
+    float: right;
+    width: 50%;
+}
+.return a{
+    text-decoration: none;
+}
 /* checkout */
 
 .box-checkout{
