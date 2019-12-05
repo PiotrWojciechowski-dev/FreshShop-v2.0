@@ -21,6 +21,23 @@
       {% csrf_token %}
       <input class="custom-button-2" type="submit" value="Add to cart">
     </form>
+    <h2>Latest reviews</h2>
+    
+    {% if latest_review_list %}
+    <div>
+      {% for review in latest_review_list %}
+      <div>
+        <h4><a href="{% url 'reviews:review_detail' review.id %}">
+            {{ review.wine.name }}
+          </a></h4>
+        <h6>rated {{ review.rating }} of 5 by {{ review.user_name }}</h6>
+        <p>{{ review.comment }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p>No reviews are available.</p>
+    {% endif %}
     <button class="custom-button return mt-4" type="submit"><a class="text-dark" href="{% url 'shop:product_list' %}">Return to Products</a></button>
     </div>
     <div class="col-sm-3 my-5 ml-3">

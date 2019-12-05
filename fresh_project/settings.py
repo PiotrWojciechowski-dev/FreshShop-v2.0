@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'imagekit',
     'django_filters',
+    'reviews',
 ]
 
 MIDDLEWARE = [
