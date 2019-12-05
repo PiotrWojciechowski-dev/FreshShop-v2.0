@@ -40,28 +40,29 @@
 				<!-- End of For loop -->			
 			</tbody>
 		</table>
-			<div class="col-md-3">
-				<p class="text-right"><strong>Order Total: &euro; 
+				<p class="text-left"><strong>Order Total: &euro; 
                                 {{order.get_total_cost}}</strong></p>
-			</div>  
-        <div class="col-sm-4">
+		<div class="col-sm-2"></div>
+		<div class="row">
+        <div>
         <p>
-            <a href="{% url 'cancel_order' order.id %}"><button class="btn btn-primary">Cancel Order</button></a>
+            <a href="{% url 'cancel_order' order.id %}"><button class="btn btn-primary mx-3">Cancel Order</button></a>
 		</p>
 		</div>
 		{% if order.paid == False %}
-		<div class="col-sm-4">
+		<div>
 		<p>
             <a href="{% url 'payment' order.id %}"><button class="btn btn-success">Pay Now</button></a>
 		</p>
 		</div>
 		{% else %}
-		<div class="col-sm-4">
+		<div>
 		<p>
-			<a href=""><button class="btn btn-success">Item is paid</button></a>
+			<button class="btn btn-success" disabled>Item is paid</button>
 		</p>
 		</div>
 		{% endif %}
+	</div> 
 	{% endfor %}
 	</div>
 	</div>
