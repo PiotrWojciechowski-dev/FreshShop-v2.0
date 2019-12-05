@@ -23,26 +23,35 @@ def contact_us_view(request):
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
+<<<<<<< HEAD
     product_list = Product.objects.all()
     f = ProductFilter(request.GET, queryset=Product.objects.all())
+=======
+    products = Product.objects.all()
+    products_filter = ProductFilter(request.GET, queryset=Product.objects.all())
+    products = products_filter.qs
+>>>>>>> piotr
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         product_list = products.filter(category=category)
     '''Pagination code'''
-    paginator = Paginator(product_list, 3)
+    paginator = Paginator(products, 6)
+    page = request.GET.get('page', 1)
     try:
-        page = int(request.GET.get('page','1'))
-    except:
-        page = 1
-    try:    
-        products = paginator.get_page(page)
-    except (EmptyPage, InvalidPage):
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
         products = paginator.page(paginator.num_pages)
     context = {
             'category': category,
             'categories': categories,
             'products': products,
+<<<<<<< HEAD
             'filter': f,
+=======
+            'filter': products_filter,
+>>>>>>> piotr
         }
     return render(request, 'product/products.html', context)
 

@@ -20,17 +20,20 @@ class Order(models.Model):
     )
 
     emailAddress = models.EmailField(
+        "Email Address",
         max_length=250,
         blank=True,
     )
 
     addressline1 = models.CharField(
+        "Address Line 1",
         max_length=250,
         null=True,
         help_text='Street address, P.O box, company name, c/o'
     )
 
     addressline2 = models.CharField(
+        "Address Line 2",
         max_length=250,
         null=True,
         blank=True,
@@ -38,22 +41,35 @@ class Order(models.Model):
     )
 
     code = models.CharField(
+        "Postal code",
         max_length=10,
         null=True,
         blank=False,
     )
 
     city = models.CharField(
+        "City",
         max_length=250,
         null=True,
     )
 
     county = models.CharField(
+        "Country",
         max_length=250,
         null=True,
     )
     
-    country = CountryField(null=True).formfield()
+    country = CountryField(blank_label='Select Country', null=True)
+
+    voucher = models.ForeignKey(Voucher,
+                               related_name='orders',
+                               null=True,
+                               blank=True,
+                               on_delete=models.SET_NULL)
+
+    discount = models.IntegerField(default=0,
+                                   validators=[MinValueValidator(0),
+                                               MaxValueValidator(100)])
 
     paid = models.BooleanField(default=False)
 
@@ -78,12 +94,19 @@ class Order(models.Model):
     def __str__(self):
         return 'Order {}'.format(self.id)
 
+<<<<<<< HEAD
     def get_total_cost(self):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
     
     def get_total(self):
         return sum(item.get_cost() for item in self.items.all())
+=======
+
+    def get_total_cost(self):
+        total_cost = sum(item.get_cost() for item in self.items.all())
+        return total_cost - total_cost * (self.discount / Decimal('100'))
+>>>>>>> piotr
         
     def get_items(self):
         return OrderItem.objects.filter(order=self)
