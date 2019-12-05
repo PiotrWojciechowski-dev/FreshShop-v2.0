@@ -33,7 +33,7 @@ def order_create(request):
                                     quantity=order_item['quantity'])
         cart.clear()
         total = Cart.get_total_price_after_discount(cart)
-       
+        Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
         return render(request, 'order_created.html', {'order': order, 'total':total})
     else: 
         print('Inside else')
@@ -136,7 +136,7 @@ def payment_made(request, order_id):
     order.paid = True
     order.save()
     Email.sendPaymentConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
-    return render(request, 'payment_made.html')
+    return render(request, 'payment_made.html', {'order':order})
 
 @csrf_exempt
 def payment_made_paypal(request):

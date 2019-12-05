@@ -14,9 +14,9 @@ class Email:
         msg["To"] = str(to_user_email)
         # Create the plain-text and html version of your message
         html = """<html><body><h1>Order Confirmation</h1><h2>Your order number is {}.
-        Please pay for your order before we ship. Amount to pay is €{}</h2><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
+        Please pay for your order before we ship. Amount to pay is €{}. There is a link here for payment, shipping will happen after payment</h2><a href='http://127.0.0.1:8000/order/payment/{}'>Pay Now</a><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
         <h3>   {}</h3><h3>   {}</h3><h3>   {}</h3></body>
-        </html>""".format(to_order_id, to_total, to_addressline1, to_addressline2, to_code, to_city, to_county, to_country)
+        </html>""".format(to_order_id, to_total, to_order_id, to_addressline1, to_addressline2, to_code, to_city, to_county, to_country)
         # Turn the message into a plain/html MIMETEXT object
         content = MIMEText(html, "html")
         # Add HTML/plain=text parts to MIMEMultipart message
@@ -32,8 +32,8 @@ class Email:
         msg['Date'] = formatdate(localtime=settings.EMAIL_USE_LOCALTIME)
         msg["To"] = str(to_user_email)
         # Create the plain-text and html version of your message
-        html = """<html><body><h1>Order Confirmation</h1><h2>Your order number is {}.
-        Please pay for your order before we ship. Amount to pay is €{}</h2><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
+        html = """<html><body><h1>Payment Confirmation</h1><h2>Your order number is {}.
+        Thank you for paying for your order we will ship in 3-5 busuness days. You paid €{}</h2><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
         <h3>   {}</h3><h3>   {}</h3><h3>   {}</h3></body>
         </html>""".format(to_order_id, to_total, to_addressline1, to_addressline2, to_code, to_city, to_county, to_country)
         # Turn the message into a plain/html MIMETEXT object
@@ -51,8 +51,8 @@ class Email:
         msg['Date'] = formatdate(localtime=settings.EMAIL_USE_LOCALTIME)
         msg["To"] = str(to_user_email)
         # Create the plain-text and html version of your message
-        html = """<html><body><h1>Order Confirmation</h1><h2>Your order number is {}.
-        Please pay for your order before we ship.</h2><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
+        html = """<html><body><h1>Order Cancelation</h1><h2>Your order number is {}.
+        Your Order has now been cancelled.</h2><h3>Address:</h3><h3>   {}</h3><h3>   {}</h3><h3>   {}</h3>
         <h3>   {}</h3><h3>   {}</h3><h3>   {}</h3></body>
         </html>""".format(to_order_id, to_addressline1, to_addressline2, to_code, to_city, to_county, to_country)
         # Turn the message into a plain/html MIMETEXT object
