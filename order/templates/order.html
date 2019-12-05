@@ -1,29 +1,31 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-    Checkout
+    <h1 class="text-center">Checkout</h1>
 {% endblock %}
 
 
 {% block content %}
-<h1>Checkout</h1>
+<h1 class="text-center mt-4">Checkout</h1>
 
-<div class="order-info">
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
     <h3>Your order</h3>
     <ul>
         {% for item in cart %}
-            <li>{{ item.quantity }}x {{ item.product.name }} <span>€{{ item.total_price }}</span></li>
+            <li>{{ item.quantity }}x {{ item.product.name }} <span>€{{ item.total_price|floatformat:"2" }}</span></li>
         {% endfor %}
     </ul>
-    <p>Total: €{{total}}</p>
+    <form action="." method="post" class="w-25">
+            <p >{{ form | crispy }}</p>
+            <input type="submit" value="Pay Now">
+            {% csrf_token %}
+    </form>
+    </div>
+    <div class="col-sm-2"></div>
 </div>
-
-<form action="." method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="payment"></p>
-
-    {% csrf_token %}
-</form>
 
 {% endblock content %}
 

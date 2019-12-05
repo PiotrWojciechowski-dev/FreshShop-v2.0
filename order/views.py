@@ -8,24 +8,26 @@ from shop.models import Product
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timezone
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.conf import settings
 import stripe
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from .email import Email
 # Create your views here.
 
-def order_create(request):
+def order_create(request, total=0):
     cart = Cart(request)
     if request.method == 'POST':
         form = IEPostalAddressForm(request.POST)
         if form.is_valid():
-            print("Inside if")
+            order = form.save(commit=False)
+            if cart.voucher:
+                order.voucher = cart.voucher
+                order.discount = cart.voucher.discount
             order = form.save()
             order.save()
-         
         for order_item in cart:
             OrderItem.objects.create(order=order,
                                     product=order_item['product'],
@@ -36,7 +38,6 @@ def order_create(request):
         Email.sendOrderConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country, total)
         return render(request, 'order_created.html', {'order': order, 'total':total})
     else: 
-        print('Inside else')
         form = IEPostalAddressForm()
     return render(request, 'order.html',{'cart':cart, 'form':form})
 
@@ -85,16 +86,20 @@ def cancel_order(request, order_id):
     Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     return redirect('order_history')
 
+def payment_method(request, total=0):
+    order_id = order.id
+    total = order_create.total
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=str(int(total * 100)),
+            currency='EUR',
+            description='Credit card charge',
+            source=request.POST['stripetoken']
+        )
+    return render(request, 'order_created.html', {'order_id':order_id})
 
-
-def adjust_stock(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    order_items = OrderItem.objects.filter(order=order)
-    for order_item in order_items:
-        product = get_object_or_404(Product, name=order_item.product)
-        product.stock += order_item.quantity
-        product.save()  
-
+def order_created(request):
+    return render(request, 'order_created.html')
 
 def payment_method(request, order_id):
     print(order_id)
