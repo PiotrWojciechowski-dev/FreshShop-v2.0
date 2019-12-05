@@ -41,21 +41,15 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'order.apps.OrderConfig',
     'search.apps.SearchConfig',
-<<<<<<< HEAD
     'vouchers.apps.VouchersConfig',
     'crispy_forms',
     'django_countries',
-<<<<<<< Updated upstream
-    'postal',
-=======
     'crispy_forms',
     'stripe',
     'paypal.standard.ipn',
-    'vouchers.apps.VouchersConfig',
     'imagekit',
->>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
-=======
->>>>>>> Stashed changes
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -152,10 +146,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CART_SESSION_ID = 'cart'
 
 #django-paypal settings
-PAYPAL_RECEIVER_EMAIL = 'sonalis.x00154002@mytudublin.ie'
+PAYPAL_RECEIVER_EMAIL = 'x00154002@mytudublin.ie'
 PAYPAL_TEST = True
 
+
+#django-stripe keys
 STRIPE_SECRET_KEY = 'sk_test_6umaOLKEqvEpQEyCPrHO73U100CTgwZNE8'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC'
-
-#pk_test_qBVMPqWOiLNRYgzNowY4zBnE004YK6BQRC

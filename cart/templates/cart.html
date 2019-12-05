@@ -83,22 +83,7 @@
 <<<<<<< HEAD
         <a href="{% url 'order_create' %}" class="button">Checkout</a>
 =======
->>>>>>> 93ea683fd34a158c593e981195b159bb7b528756
+>>>>>>> master
     </p>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-right">
-                        <form action="{% url 'order_create' %}" method="POST">
-                            {% csrf_token %}
-                            <script
-                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="{{data_key}}"
-                            data-name="Online store"
-                            data-description="Online Shop - New Order"
-                            data-amount="{{stripe_total}}"
-                            data-currency="EUR"></script>
-                        </form>
-                    </p>
-                </div>
-            </div>
+    <a href="{% url 'order_create' %}" class="button">Checkout</a>
 {% endblock %}
