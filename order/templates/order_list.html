@@ -4,10 +4,12 @@
 	Order History 
 {% endblock %}
 {% block content %}
-<div class="col-md-12">
-	{% if messages %}
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8 mt-5 ml-5">
+		{% if messages %}
 		{% for msg in messages %}       
-			<div class="alert alert-success">
+			<div class="alert alert-danger">
 				{{msg.message}}
 			</div>
 		{% endfor %}
@@ -16,7 +18,7 @@
 	{% for order in orders %}
 		<p>Order Number: {{order.id}}</p>
 		<p>Order Date: {{order.created}}</p>
-		<table class="table table-bordered table-hover table-condensed">					
+		<table class="table table-bordered table-hover table-condensed w-75">					
 			<thead>
 			<!-- The header row-->
 				<tr>
@@ -47,6 +49,7 @@
         <p>
             <a href="{% url 'cancel_order' order.id %}"><button class="btn btn-primary">Cancel Order</button></a>
 		</p>
+<<<<<<< HEAD
 		{% if order.paid == False %}
 		<p>
             <a href="{% url 'payment' order.id %}"><button class="btn custom-button col-sm-5">Pay Now</button></a>
@@ -54,10 +57,16 @@
 		{% else %}
 		<p class="custom-button p-2 text-center">Item is paid</p>
 		{% endif %}
+=======
+		<hr>
+>>>>>>> master
 	{% endfor %}
-	<div class="mx-auto">
+	</div>
+</div>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8 my-3">
 		{% if orders.paginator.num_pages > 1 %}
-			<hr>
 			<div class="text-center">
 				{% for pg in orders.paginator.page_range %}
 					<a href="?page={{pg}}" class="btn btn-light btn-sm
@@ -69,5 +78,6 @@
 			</div>
 		{% endif %}
 	</div>
-</div>
+	<div class="col-sm-2"></div>
+
 {% endblock content %}

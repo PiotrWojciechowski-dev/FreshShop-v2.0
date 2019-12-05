@@ -74,6 +74,7 @@ def order_history(request):
 
 def cancel_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
+    order_id = order_id
     order_date = order.created
     current_date = datetime.now(timezone.utc)
     date_diff = current_date - order_date
@@ -82,10 +83,11 @@ def cancel_order(request, order_id):
         order.delete()
         messages.add_message(request, messages.INFO, 
                     'Order is now cancelled')
+        Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     else:
         messages.add_message(request, messages.INFO,
                     'Sorry, it is too late to cancel this order')
-    Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
+    Email.sendCancelationConfirmation(request, order.emailAddress, order_id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     return redirect('order_history')
 
 def payment_method(request, total=0):
