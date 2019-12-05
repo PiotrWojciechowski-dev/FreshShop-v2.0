@@ -77,13 +77,12 @@ def cancel_order(request, order_id):
     minutes_diff = date_diff.total_seconds() / 60.0
     if minutes_diff <= 500:
         order.delete()
-        adjust_stock(request, order_id)
-        messages.add_message(request, messages.INFO, 
+        messages.success(request, messages.INFO, 
                     'Order is now cancelled')
+        Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     else:
         messages.add_message(request, messages.INFO,
                     'Sorry, it is too late to cancel this order')
-    Email.sendCancelationConfirmation(request, order.emailAddress, order.id, order.addressline1, order.addressline2, order.code, order.city, order.county, order.country)
     return redirect('order_history')
 
 def payment_method(request, total=0):
