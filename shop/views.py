@@ -3,6 +3,7 @@ from .models import Category, Product
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from cart.forms import CartAddProductForm
+from .filters import ProductFilter
 
 # Create your views here.
 
@@ -22,8 +23,8 @@ def contact_us_view(request):
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
     product_list = Product.objects.all()
+    f = ProductFilter(request.GET, queryset=Product.objects.all())
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         product_list = products.filter(category=category)
@@ -41,6 +42,7 @@ def product_list(request, category_slug=None):
             'category': category,
             'categories': categories,
             'products': products,
+            'filter': f,
         }
     return render(request, 'product/products.html', context)
 
