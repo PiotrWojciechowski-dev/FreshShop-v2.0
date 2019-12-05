@@ -41,6 +41,8 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null = True)
+
     
 
     class Meta:
@@ -70,7 +72,10 @@ class Review(models.Model):
     user_name = models.CharField(max_length=100)
     comment = models.CharField(max_length = 200)
     rating = models.IntegerField(choices=RATING_CHOICES)
-    order = OrderField(blank=True, for_fields=['product'])   
+    order = OrderField(blank=True, for_fields=['product']) 
+    product = models.CharField(max_length = 250, null= True)
+    
+    
 
     class Meta:
         ordering = ['order']  
