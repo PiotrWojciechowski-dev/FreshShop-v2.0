@@ -7,9 +7,6 @@ from vouchers.forms import VoucherApplyForm
 from django.conf import settings
 import stripe
 
-
-
-
 # Create your views here.
 
 @require_POST
