@@ -61,6 +61,12 @@ class Order(models.Model):
     
     country = CountryField(blank_label='Select Country', null=True)
 
+    username = models.CharField(
+        "username",
+        max_length=250,
+        blank=True,
+        null=True,
+    )
     voucher = models.ForeignKey(Voucher,
                                related_name='orders',
                                null=True,
