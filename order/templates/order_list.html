@@ -24,17 +24,15 @@
 				<th>Name</th>
 				<th>Quantity</th>
 				<th>Price</th>
-				<th>Total</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for order_item  in order.get_items %}
 				<tr>
-					<td>{{order_item.id}}</td>
+					<td>{{order.id}}</td>
 					<td>{{order_item.product}}</td>
 					<td>{{order_item.quantity}}</td>
-					<td>&euro; {{order_item.price}}</td>
-					<td>&euro; {{order_item.get_cost}}</td>				
+					<td>&euro; {{order_item.price}}</td>		
 				</tr>
 				{% endfor %}
 				<!-- End of For loop -->			
