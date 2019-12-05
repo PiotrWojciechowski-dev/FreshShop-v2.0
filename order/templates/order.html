@@ -11,21 +11,48 @@
 
 <div class="row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-    <h3>Your order</h3>
-    <ul>
-        {% for item in cart %}
-            <li>{{ item.quantity }}x {{ item.product.name }} <span>€{{ item.total_price|floatformat:"2" }}</span></li>
-        {% endfor %}
-    </ul>
-    <form action="." method="post" class="w-25">
-            <p >{{ form | crispy }}</p>
+    <div class="col-sm-5">
+    <form action="." method="post" class="box-checkout w-75 mb-3">
+            <p>{{ form | crispy }}</p>
             <input type="submit" value="Pay Now">
             {% csrf_token %}
     </form>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="box-ordercheckout col-sm-2 h-50 mb-1">
+        <h3>Your order</h3>
+        <ul>
+            {% for item in cart %}
+                <li>{{ item.quantity }}x {{ item.product.name }} <br><span>€{{ item.total_price|floatformat:"2" }}</span><hr></li>
+            {% endfor %}
+            {% if cart.voucher %}
+                <tr class="subtotal">
+                <td>Subtotal: </td>
+                <td colspan="4"></td>
+                <td class="num">€{{ cart.get_total_price|floatformat:"2"}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        ({{ cart.voucher.discount }}% off)
+                    </td>
+                    <td colspan="4"></td>
+                    <td class="num neg">
+                        - €{{ cart.get_discount|floatformat:"2" }}
+                    </td>
+                </tr>
+            {% endif %}
+            <br>
+            <tr class="total">
+                <td>Total:  </td>
+                <td colspan="4"></td>
+                <td class="num">
+                    €{{ cart.get_total_price_after_discount|floatformat:"2"}}
+                </td>
+            </tr>
+            
+        </ul>
+        </div>
 </div>
+
 
 {% endblock content %}
 
