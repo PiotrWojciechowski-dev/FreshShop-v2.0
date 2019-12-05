@@ -5,14 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="text-center">You will need to provide payment before order is shipped {{ order.id }}</h2>
+<h2 class="text-center mt-5">You will need to provide payment before order is shipped {{ order.id }}</h2>
 <h3 class="text-center">You can pay with either Card or PayPal</h3>
 <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-2" class="float-right">
-            
-            <p class="text-center">
-                <form action="{% url 'payment_made' order.id %}">
+        <div class="col-md-2 ml-5 mt-3">
+            <p class="ml-5">
+                <form class="text-center" action="{% url 'payment_made' order.id %}">
                     {% csrf_token %}
                     <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -24,8 +23,8 @@
                 </form>
             </p>
         </div>
-        <div class="col-md-2">
-            <h4>Pay using paypal</h4>
+        <div class="col-md-2 mt-3 mb-5">
+            <h4 class="">Pay using paypal</h4>
             {{ form.render }}
         </div>
     </div>

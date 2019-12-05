@@ -158,7 +158,7 @@ footer {
     color: black;
     background: #e3ffff;
     cursor: pointer;
-    width: 30%;
+    width: 35%;
 }
 
 .box-signin a{
@@ -274,6 +274,10 @@ footer {
 .return a{
     text-decoration: none;
 }
+
+.return a:hover{
+    color: black;
+}
 /* checkout */
 
 .box-checkout{
@@ -294,4 +298,14 @@ footer {
     min-height: 404px;
     width: 50%;
     margin-right: auto;
+}
+
+.custom-button-3{
+    border: 2px black solid;
+    border-radius: 10px;
+    color: black;
+    background: #e3ffff;
+    cursor: pointer;
+    width: 10%;
+    margin-left: 10px;
 }

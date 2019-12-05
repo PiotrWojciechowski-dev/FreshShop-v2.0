@@ -6,10 +6,10 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-8">
-            <h1>Your shopping cart</h1>
-    <table class="cart">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 ml-3">
+            <h1 class="my-3">Your shopping cart</h1>
+    <table class="table table-bordered table-hover table-condensed">
         <thead>
             <tr>
                 <th>Image</th>
@@ -37,7 +37,7 @@
                 <td><form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {{ item.update_quantity_form.quantity }}
                         {{ item.update_quantity_form.update }}
-                        <input type="submit" value="Update">
+                        <input class="custom-button" type="submit" value="Update">
                             {% csrf_token %}
                     </form>
                 </td>
@@ -77,13 +77,13 @@
     <p>Apply a voucher:</p>
     <form class="pb-2" action="{% url 'vouchers:apply' %}" method="post">
         {{ voucher_apply_form }}
-        <input type="submit" value="Apply">
+        <input class="custom-button-3" type="submit" value="Apply">
         {% csrf_token %}
     </form>
-    <p class="text-left">
+    <p class="text-left return my-4">
         <a href="{% url 'shop:product_list' %}"
-            class="custom-button bg-white m-3 p-1 text-left">Continue shopping</a>
-        <a href="{% url 'order_create' %}" class="custom-button bg-white m-3 p-1 text-left">Checkout</a>
+            class="custom-button m-3 p-2 text-left">Continue shopping</a>
+        <a href="{% url 'order_create' %}" class="custom-button m-3 p-2 text-left">Checkout</a>
     </p>
     </div>
     <div class="col-sm-1"></div>
